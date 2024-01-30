@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "./store";
 
 // for create actions
 // import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -21,5 +22,10 @@ const stagesSlice = createSlice({
   initialState,
   reducers: {},
 });
+
+export const selectAllStages = (state: RootState) => state.stages;
+
+export const selectStageById = (state: RootState, id: string | number) =>
+  state.stages.find((stage) => stage.id === id);
 
 export default stagesSlice.reducer;
