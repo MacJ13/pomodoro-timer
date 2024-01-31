@@ -6,3 +6,7 @@ export type Stage = {
   duration: number;
   color: string;
 };
+
+export type ChildrenProps = {
+  children: React.ReactElement | React.ReactElement[];
+};

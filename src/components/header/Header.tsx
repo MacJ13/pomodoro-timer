@@ -1,10 +1,7 @@
 import styled from "styled-components";
+import { ChildrenProps } from "../../types/types";
 
-type HeaderProps = {
-  children: React.ReactElement;
-};
-
-const Header = ({ children }: HeaderProps) => {
+const Header = ({ children }: ChildrenProps) => {
   return <StyledHeader>{children}</StyledHeader>;
 };
 

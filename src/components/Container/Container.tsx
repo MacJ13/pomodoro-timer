@@ -1,8 +1,5 @@
 import styled from "styled-components";
-
-type WrapperProps = {
-  children: React.ReactElement | React.ReactElement[];
-};
+import { ChildrenProps } from "../../types/types";
 
 const Wrapper = styled.div<{ $background?: string }>`
   position: relative;
@@ -15,7 +12,7 @@ const Wrapper = styled.div<{ $background?: string }>`
   background: ${(props) => props.$background};
 `;
 
-const Container = ({ children }: WrapperProps) => {
+const Container = ({ children }: ChildrenProps) => {
   return <Wrapper $background="#eb3838">{children}</Wrapper>;
 };
 
