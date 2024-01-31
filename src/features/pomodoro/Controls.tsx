@@ -6,7 +6,11 @@ import RepeatSvg from "../../assets/icons/repeat.svg?react";
 import NextSvg from "../../assets/icons/next.svg?react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { changeStatus, getStatus } from "../../redux/pomodoroSlice";
+import {
+  changeNextStage,
+  changeStatus,
+  getStatus,
+} from "../../redux/pomodoroSlice";
 
 type ControlsProps = {
   repeat: () => void;
@@ -33,7 +37,7 @@ const Controls = ({ repeat }: ControlsProps) => {
         {isStart ? <PauseSvg /> : <PlaySvg />}
       </Button>
 
-      <Button disabled={isStart} onClick={repeat}>
+      <Button disabled={isStart} onClick={() => dispatch(changeNextStage())}>
         <NextSvg />
       </Button>
     </Bar>
