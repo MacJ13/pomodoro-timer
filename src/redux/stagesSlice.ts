@@ -1,15 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
+import { Stage } from "../types/types";
 
 // for create actions
 // import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface Stage {
-  id: string;
-  name: string;
-  duration: number;
-  color: string;
-}
 
 const initialState: Stage[] = [
   { id: "pomodoro", name: "pomodoro", duration: 1500, color: "#eb3838" },
