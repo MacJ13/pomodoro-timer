@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { selectPomodoro, changeStatus } from "../../redux/pomodoroSlice";
+import { selectPomodoro, changeNextStage } from "../../redux/pomodoroSlice";
 import { selectStageById } from "../../redux/stagesSlice";
 import { RootState } from "../../redux/store";
 import CircularProgress from "./CircularProgress";
@@ -30,8 +30,12 @@ const ControlTimer = () => {
   };
 
   useEffect(() => {
+    setDuration(stage.duration);
+  }, [stage.duration]);
+
+  useEffect(() => {
     if (duration <= 0 && isRunning) {
-      dispatch(changeStatus());
+      dispatch(changeNextStage());
     } else if (isRunning) {
       startTimer();
     }
