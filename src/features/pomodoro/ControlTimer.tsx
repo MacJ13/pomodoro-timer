@@ -8,6 +8,7 @@ import { selectStageById } from "../../redux/stagesSlice";
 import { RootState } from "../../redux/store";
 import CircularProgress from "./CircularProgress";
 import Countdown from "./Countdown";
+import Controls from "./Controls";
 
 const ControlTimer = () => {
   const { stageId, status } = useSelector(selectPomodoro);
@@ -23,6 +24,10 @@ const ControlTimer = () => {
   const intervalRef = useRef<number | null>(null);
 
   const isRunning = status === "start";
+
+  const repeatStage = () => {
+    setDuration(stage.duration);
+  };
 
   useEffect(() => {
     if (duration <= 0 && isRunning) {
@@ -56,6 +61,7 @@ const ControlTimer = () => {
         <CircularProgress stage={stage} size={300} current={duration} />
         <Countdown duration={duration} />
       </CountdownWrapper>
+      <Controls repeat={repeatStage} />
     </div>
   );
 };

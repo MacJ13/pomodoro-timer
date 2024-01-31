@@ -8,7 +8,11 @@ import NextSvg from "../../assets/icons/next.svg?react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeStatus, getStatus } from "../../redux/pomodoroSlice";
 
-const Controls = () => {
+type ControlsProps = {
+  repeat: () => void;
+};
+
+const Controls = ({ repeat }: ControlsProps) => {
   const dispatch = useDispatch();
 
   const status = useSelector(getStatus);
@@ -17,7 +21,7 @@ const Controls = () => {
 
   return (
     <Bar>
-      <Button>
+      <Button disabled={isStart} onClick={repeat}>
         <RepeatSvg />
       </Button>
 
@@ -29,7 +33,7 @@ const Controls = () => {
         {isStart ? <PauseSvg /> : <PlaySvg />}
       </Button>
 
-      <Button>
+      <Button disabled={isStart} onClick={repeat}>
         <NextSvg />
       </Button>
     </Bar>
@@ -69,6 +73,10 @@ const Button = styled.button`
 
   &:hover {
     opacity: 1;
+  }
+
+  &:disabled {
+    opacity: 0.25 !important;
   }
 `;
 
