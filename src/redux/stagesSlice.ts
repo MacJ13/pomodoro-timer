@@ -6,9 +6,9 @@ import { Stage } from "../types/types";
 // import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: Stage[] = [
-  { id: "pomodoro", name: "pomodoro", duration: 1500, color: "#eb3838" },
-  { id: "short", name: "short", duration: 300, color: "#16a34a" },
-  { id: "long", name: "long", duration: 900, color: "#0284c7" },
+  { id: "pomodoro", name: "pomodoro", duration: 1500, color: "#c65151" },
+  { id: "short", name: "short", duration: 300, color: "#258749" },
+  { id: "long", name: "long", duration: 900, color: "#547dbf" },
 ];
 
 const stagesSlice = createSlice({
