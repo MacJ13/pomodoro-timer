@@ -1,19 +1,23 @@
 import styled from "styled-components";
 import { ChildrenProps } from "../../types/types";
+import Background from "../background/Background";
 
-const Wrapper = styled.div<{ $background?: string }>`
+const Wrapper = styled.div`
   position: relative;
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  background: ${(props) => props.$background};
 `;
 
 const Container = ({ children }: ChildrenProps) => {
-  return <Wrapper $background="#eb3838">{children}</Wrapper>;
+  return (
+    <Wrapper>
+      <Background />
+      {children}
+    </Wrapper>
+  );
 };
 
 export default Container;
