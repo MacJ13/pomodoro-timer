@@ -1,12 +1,12 @@
 // import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { StatusType } from "../utils/types/types";
+import { Status } from "../types/types";
 
 interface PomodoroState {
+  status: Status;
   stageId: string;
   longBreakInterval: number;
-  status: StatusType;
   round: number;
   autoStartBreaks: boolean;
   autoStartPomodoros: boolean;
