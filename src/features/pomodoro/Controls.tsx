@@ -68,15 +68,17 @@ const Button = styled.button`
   height: 1.75rem;
   width: 1.75rem;
   opacity: 0.75;
+  pointer-events: auto;
 
-  transition: opacity 0.25s;
+  transition: opacity 0.33s;
 
   &:hover {
     opacity: 1;
   }
 
   &:disabled {
-    opacity: 0.25 !important;
+    opacity: 0 !important;
+    pointer-events: none;
   }
 `;
 
