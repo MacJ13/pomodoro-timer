@@ -5,15 +5,28 @@ import PauseSvg from "../../assets/icons/pause.svg?react";
 import RepeatSvg from "../../assets/icons/repeat.svg?react";
 import NextSvg from "../../assets/icons/next.svg?react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { changeStatus, getStatus } from "../../redux/pomodoroSlice";
+
 const Controls = () => {
+  const dispatch = useDispatch();
+
+  const status = useSelector(getStatus);
+
+  const isStart = status === "start";
+
   return (
     <Bar>
       <Button>
         <RepeatSvg />
       </Button>
 
-      <Button>
-        <PlaySvg />
+      <Button
+        onClick={() => {
+          dispatch(changeStatus());
+        }}
+      >
+        {isStart ? <PauseSvg /> : <PlaySvg />}
       </Button>
 
       <Button>

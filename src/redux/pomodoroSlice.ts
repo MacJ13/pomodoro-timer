@@ -40,4 +40,6 @@ export const { changeStatus } = pomodoroSlice.actions;
 export const selectPomodoroId = (state: RootState) => state.pomodoro.stageId;
 export const selectPomodoro = (state: RootState) => state.pomodoro;
 
+export const getStatus = (state: RootState) => state.pomodoro.status;
+
 export default pomodoroSlice.reducer;

@@ -1,21 +1,54 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { selectPomodoro } from "../../redux/pomodoroSlice";
+import { selectPomodoro, changeStatus } from "../../redux/pomodoroSlice";
 import { selectStageById } from "../../redux/stagesSlice";
 import { RootState } from "../../redux/store";
 import CircularProgress from "./CircularProgress";
 import Countdown from "./Countdown";
 
 const ControlTimer = () => {
-  const { stageId } = useSelector(selectPomodoro);
+  const { stageId, status } = useSelector(selectPomodoro);
 
   const stage = useSelector((state: RootState) =>
     selectStageById(state, stageId)
   )!;
 
-  const [duration] = useState<number>(stage.duration);
+  const dispatch = useDispatch();
+
+  const [duration, setDuration] = useState<number>(stage.duration);
+
+  const intervalRef = useRef<number | null>(null);
+
+  const isRunning = status === "start";
+
+  useEffect(() => {
+    if (duration <= 0 && isRunning) {
+      dispatch(changeStatus());
+    } else if (isRunning) {
+      startTimer();
+    }
+
+    return () => {
+      pauseTimer();
+    };
+  }, [status, duration]);
+
+  const pauseTimer = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  const startTimer = () => {
+    if (intervalRef.current === null)
+      intervalRef.current = setInterval(() => {
+        setDuration((prevDuration) => prevDuration - 1);
+      }, 1000);
+  };
 
   return (
     <div>
