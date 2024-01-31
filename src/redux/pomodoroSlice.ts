@@ -1,11 +1,11 @@
-// import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { Status } from "../types/types";
+import { StageId, Status } from "../types/types";
 
 interface PomodoroState {
   status: Status;
-  stageId: string;
+  stageId: StageId;
   longBreakInterval: number;
   round: number;
   autoStartBreaks: boolean;
@@ -32,10 +32,28 @@ const pomodoroSlice = createSlice({
     changeStatus(state) {
       state.status = state.status === "start" ? "pause" : "start";
     },
+    changeStageId(state, action: PayloadAction<StageId>) {
+      if (state.stageId === action.payload) return;
+
+      state.stageId = action.payload;
+      state.status = "pause";
+    },
+    changeNextStage(state) {
+      if (state.stageId === "pomodoro")
+        state.stageId =
+          state.round % state.longBreakInterval === 0 ? "long" : "short";
+      else {
+        state.stageId = "pomodoro";
+        state.round += 1;
+      }
+
+      state.status = "pause";
+    },
   },
 });
 
-export const { changeStatus } = pomodoroSlice.actions;
+export const { changeStatus, changeStageId, changeNextStage } =
+  pomodoroSlice.actions;
 
 export const selectPomodoroId = (state: RootState) => state.pomodoro.stageId;
 export const selectPomodoro = (state: RootState) => state.pomodoro;
