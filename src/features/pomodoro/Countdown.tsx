@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { minTwoDigits } from "../../helpers/helpers";
 
-type CountdownTimerProps = {
+type CountdownProps = {
   duration: number;
 };
 
-const CountdownTimer = ({ duration }: CountdownTimerProps) => {
+const Countdown = ({ duration }: CountdownProps) => {
   const quotient = Math.trunc(duration / 60);
   const modulo = duration % 60;
 
@@ -13,13 +13,13 @@ const CountdownTimer = ({ duration }: CountdownTimerProps) => {
   const seconds = minTwoDigits(modulo);
 
   return (
-    <Countdown>
+    <Counter>
       {minutes}:{seconds}
-    </Countdown>
+    </Counter>
   );
 };
 
-const Countdown = styled.h1`
+const Counter = styled.h1`
   font-size: 4.25rem;
   font-weight: 700;
   letter-spacing: 2px;
@@ -27,4 +27,4 @@ const Countdown = styled.h1`
   font-family: "Chivo Mono", monospace;
 `;
 
-export default CountdownTimer;
+export default Countdown;
