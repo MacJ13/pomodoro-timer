@@ -12,7 +12,7 @@ const Bg = styled.div<{ $background?: string }>`
   left: 0;
   background: ${(props) => props.$background};
 
-  transition: background 0.5s;
+  transition: background 1s;
 `;
 
 const Background = () => {
