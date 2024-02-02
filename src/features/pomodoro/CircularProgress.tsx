@@ -10,7 +10,6 @@ type CircularProgressProps = {
 const CircularProgress = ({ stage, size, current }: CircularProgressProps) => {
   const strokeWidth = 5;
 
-  const circleSize = size / 2;
   const circleRadius = size / 2 - strokeWidth;
   // circumference = 2 × π × radius
   const difference = (current / stage.duration) * 100;
@@ -29,26 +28,26 @@ const CircularProgress = ({ stage, size, current }: CircularProgressProps) => {
           transform: "rotate(-90deg)",
         }}
       >
-        <circle
+        {/* <circle
           r={circleRadius}
-          cx={circleSize}
-          cy={circleSize}
+          cx="50%"
+          cy="50%"
           fill="transparent"
           //   stroke="#e0e0e0"
           stroke="#ffffff"
           opacity={0.5}
           strokeWidth={strokeWidth}
-        ></circle>
+        ></circle> */}
         <circle
           r={circleRadius}
-          cx={circleSize}
-          cy={circleSize}
+          cx="50%"
+          cy="50%"
           fill="transparent"
           //   stroke="#ffffff"
-
-          stroke={stage.color}
+          stroke="#ffffff"
+          opacity={0.5}
+          // stroke={stage.color}
           //   strokeLinecap="round"
-          //   opacity={0.5}
           strokeWidth={strokeWidth + 2}
           strokeDasharray={`${circumreference}px`}
           strokeDashoffset={`${offset}px`}
@@ -63,6 +62,10 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  & circle {
+    transition: all 1s linear;
+  }
 `;
 
 export default CircularProgress;
