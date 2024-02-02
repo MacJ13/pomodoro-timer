@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { clearInterval, setInterval } from "worker-timers";
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -25,7 +26,7 @@ const ControlTimer = () => {
 
   const isRunning = status === "start";
 
-  const changeStage = duration <= 0 && isRunning;
+  // const changeStage = duration <= 0 && isRunning;
   const repeatStage = () => {
     setDuration(stage.duration);
   };
