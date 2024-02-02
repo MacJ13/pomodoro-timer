@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
@@ -25,16 +25,23 @@ const ControlTimer = () => {
 
   const isRunning = status === "start";
 
+  const changeStage = duration <= 0 && isRunning;
   const repeatStage = () => {
     setDuration(stage.duration);
   };
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   flushSync(() => {
+  //     setDuration(stage.duration);
+  //   });
+  // }, [stageId]);
+
+  useLayoutEffect(() => {
     setDuration(stage.duration);
-  }, [stage.duration]);
+  }, [stageId]);
 
   useEffect(() => {
-    if (duration <= 0 && isRunning) {
+    if (duration < 0 && isRunning) {
       dispatch(changeNextStage());
     } else if (isRunning) {
       startTimer();
