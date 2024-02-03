@@ -1,12 +1,16 @@
+import { useDispatch } from "react-redux";
 import Settings from "../../assets/icons/settings.svg?react";
 import styled from "styled-components";
+import { toggleSettings } from "../../redux/settingsSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   return (
     <Nav>
       <NavHeading>Pomodoro timer</NavHeading>
       <div>
-        <Button>
+        <Button onClick={() => dispatch(toggleSettings())}>
           <ButtonWrapper>
             <Settings />
           </ButtonWrapper>

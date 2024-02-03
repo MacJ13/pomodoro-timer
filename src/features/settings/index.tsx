@@ -1,13 +1,32 @@
 import styled from "styled-components";
 import CloseSvg from "../../assets/icons/close.svg?react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectOpen, toggleSettings } from "../../redux/settingsSlice";
 
 const Settings = () => {
+  const isOpen = useSelector(selectOpen);
+  const dispatch = useDispatch();
+
+  if (!isOpen) return null;
+
   return (
-    <Modal>
-      <Content>
+    <Modal
+      onClick={() => {
+        dispatch(toggleSettings());
+      }}
+    >
+      <Content
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <SettingsBar>
           <Title>Settings</Title>
-          <CloseButton>
+          <CloseButton
+            onClick={() => {
+              dispatch(toggleSettings());
+            }}
+          >
             <CloseSvg />
           </CloseButton>
         </SettingsBar>
