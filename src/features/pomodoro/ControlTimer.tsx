@@ -4,9 +4,14 @@ import { clearInterval, setInterval } from "worker-timers";
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { selectPomodoro, changeNextStage } from "../../redux/pomodoroSlice";
+import {
+  selectPomodoro,
+  changeNextStage,
+  startAutoCountdown,
+} from "../../redux/pomodoroSlice";
+
 import { selectStageById } from "../../redux/stagesSlice";
-import { RootState } from "../../redux/store";
+import { AppDispatch, RootState } from "../../redux/store";
 import CircularProgress from "./CircularProgress";
 import Countdown from "./Countdown";
 import Controls from "./Controls";
@@ -18,7 +23,7 @@ const ControlTimer = () => {
     selectStageById(state, stageId)
   )!;
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [duration, setDuration] = useState<number>(stage.duration);
 
@@ -39,6 +44,14 @@ const ControlTimer = () => {
 
   useLayoutEffect(() => {
     setDuration(stage.duration);
+  }, [stageId]);
+
+  useEffect(() => {
+    const promise = dispatch(startAutoCountdown());
+
+    return () => {
+      promise.abort();
+    };
   }, [stageId]);
 
   useEffect(() => {

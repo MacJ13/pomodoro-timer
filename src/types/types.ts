@@ -1,4 +1,4 @@
-export type Status = "changing" | "pause" | "start";
+export type Status = "start" | "pause" | "idle";
 
 export type StageId = string | number;
 

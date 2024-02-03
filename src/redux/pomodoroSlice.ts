@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { StageId, Status } from "../types/types";
 
@@ -15,20 +14,49 @@ interface PomodoroState {
 const initialState: PomodoroState = {
   stageId: "pomodoro",
   longBreakInterval: 4,
-  status: "pause",
+  status: "idle",
   round: 1,
   autoStartBreaks: false,
   autoStartPomodoros: false,
 };
+
+const wait = (s: number) => {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, s * 1000);
+  });
+};
+
+export const startAutoCountdown = createAsyncThunk(
+  "pomodoro/startAutoCountdown",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (_) => {
+    await wait(1.5);
+    return true;
+  },
+  {
+    condition: (
+      _,
+      { getState }: { getState: () => RootState; extra: unknown }
+    ) => {
+      const { pomodoro } = getState();
+
+      if (
+        (pomodoro.stageId === "pomodoro" && !pomodoro.autoStartPomodoros) ||
+        (pomodoro.stageId !== "pomodoro" && !pomodoro.autoStartBreaks) ||
+        pomodoro.status === "idle"
+      )
+        return false;
+    },
+  }
+);
 
 const pomodoroSlice = createSlice({
   name: "pomodoro",
   initialState,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    // changeStatus(state, action: PayloadAction<StatusType>) {
-    //   console.log(state, action);
-    // },
     changeStatus(state) {
       state.status = state.status === "start" ? "pause" : "start";
     },
@@ -39,16 +67,25 @@ const pomodoroSlice = createSlice({
       state.status = "pause";
     },
     changeNextStage(state) {
-      if (state.stageId === "pomodoro")
+      if (state.stageId === "pomodoro") {
         state.stageId =
           state.round % state.longBreakInterval === 0 ? "long" : "short";
-      else {
+      } else {
         state.stageId = "pomodoro";
         state.round += 1;
       }
 
       state.status = "pause";
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(startAutoCountdown.pending, (state) => {
+        state.status = "pause";
+      })
+      .addCase(startAutoCountdown.fulfilled, (state) => {
+        state.status = "start";
+      });
   },
 });
 
@@ -57,7 +94,6 @@ export const { changeStatus, changeStageId, changeNextStage } =
 
 export const selectPomodoroId = (state: RootState) => state.pomodoro.stageId;
 export const selectPomodoro = (state: RootState) => state.pomodoro;
-
 export const getStatus = (state: RootState) => state.pomodoro.status;
 
 export default pomodoroSlice.reducer;
