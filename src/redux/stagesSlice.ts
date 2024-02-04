@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { Stage } from "../types/types";
+import { Stage, StageId } from "../types/types";
 
 // for create actions
 // import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -14,8 +14,20 @@ const initialState: Stage[] = [
 const stagesSlice = createSlice({
   name: "stages",
   initialState,
-  reducers: {},
+  reducers: {
+    changeStageTime(
+      state,
+      action: PayloadAction<{ id: StageId; newDuration: number }>
+    ) {
+      const foundStage = state.find(
+        (stage) => stage.id === action.payload.id
+      ) as Stage;
+      foundStage.duration = action.payload.newDuration;
+    },
+  },
 });
+
+export const { changeStageTime } = stagesSlice.actions;
 
 export const selectAllStages = (state: RootState) => state.stages;
 
