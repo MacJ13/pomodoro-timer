@@ -15,6 +15,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import CircularProgress from "./CircularProgress";
 import Countdown from "./Countdown";
 import Controls from "./Controls";
+import { StageId } from "../../types/types";
 
 const ControlTimer = () => {
   const { stageId, status } = useSelector(selectPomodoro);
@@ -26,6 +27,7 @@ const ControlTimer = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [duration, setDuration] = useState<number>(stage.duration);
+  const [currentId, setCurrentId] = useState<StageId>(stage.id);
 
   const intervalRef = useRef<number | null>(null);
 
@@ -42,8 +44,17 @@ const ControlTimer = () => {
   //   });
   // }, [stageId]);
 
+  useEffect(() => {
+    if (currentId === stage.id) {
+      setDuration(stage.duration);
+    }
+  }, [stage.duration]);
+
   useLayoutEffect(() => {
-    setDuration(stage.duration);
+    if (status !== "idle") {
+      setDuration(stage.duration);
+      setCurrentId(stage.id);
+    }
   }, [stageId]);
 
   useEffect(() => {

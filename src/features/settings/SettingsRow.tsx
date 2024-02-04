@@ -20,9 +20,8 @@ const RowTitle = styled.h2`
 
 const Row = styled.div`
   display: flex;
-  width: 100%;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
 `;
 
 export default SettingsRow;
