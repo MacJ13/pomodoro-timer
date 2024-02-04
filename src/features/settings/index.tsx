@@ -1,39 +1,64 @@
 import styled from "styled-components";
 import CloseSvg from "../../assets/icons/close.svg?react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectOpen, toggleSettings } from "../../redux/settingsSlice";
+import {
+  selectOpen,
+  selectTheme,
+  toggleSettings,
+  toggleTheme,
+} from "../../redux/settingsSlice";
 import ChangeDuration from "./ChangeDuration";
 import ChangeAutoStart from "./ChangeAutoStart";
 import ChangeInterval from "./ChangeInterval";
+import SettingsTheme from "./SettingsTheme";
+import ChangeThemes from "./ChangeThemes";
+import SettingsHeading from "./SettingsHeading";
 
 const Settings = () => {
-  const isOpen = useSelector(selectOpen);
+  const openSettings = useSelector(selectOpen);
+  const openTheme = useSelector(selectTheme);
+
   const dispatch = useDispatch();
 
   const closeSettings = () => {
-    dispatch(toggleSettings());
+    if (openTheme) {
+      dispatch(toggleTheme());
+    } else if (openSettings) {
+      dispatch(toggleSettings());
+    }
   };
 
   const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
 
-  if (!isOpen) return null;
+  if (!openSettings && !openTheme) return null;
+
+  const content = openTheme ? (
+    <>
+      <SettingsHeading title="Themes" />
+      <ChangeThemes />
+    </>
+  ) : (
+    <>
+      <SettingsHeading title="Settings">
+        <CloseButton onClick={closeSettings}>
+          <CloseSvg />
+        </CloseButton>
+      </SettingsHeading>
+      <ChangeDuration />
+      <ChangeAutoStart />
+      <ChangeInterval />
+      <SettingsTheme />
+    </>
+  );
 
   return (
-    <Modal onClick={closeSettings}>
-      <Content onClick={stopPropagation}>
-        <SettingsBar>
-          <Title>Settings</Title>
-          <CloseButton onClick={closeSettings}>
-            <CloseSvg />
-          </CloseButton>
-        </SettingsBar>
-        <ChangeDuration />
-        <ChangeAutoStart />
-        <ChangeInterval />
-      </Content>
-    </Modal>
+    <>
+      <Modal onClick={closeSettings}>
+        <Content onClick={stopPropagation}>{content}</Content>
+      </Modal>
+    </>
   );
 };
 
@@ -53,24 +78,6 @@ const CloseButton = styled.button`
   }
 `;
 
-const Title = styled.h2`
-  color: rgba(0, 0, 0, 0.375);
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-`;
-
-const SettingsBar = styled.div`
-  align-items: center;
-  display: flex;
-  gap: 2rem;
-  justify-content: space-between;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  margin-bottom: 1rem;
-`;
-
 const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -78,7 +85,7 @@ const Modal = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.25);
-
+  overflow-y: scroll;
   z-index: 5;
 `;
 
