@@ -71,6 +71,9 @@ const pomodoroSlice = createSlice({
       state.stageId = action.payload;
       state.status = "pause";
     },
+    changeInterval(state, action: PayloadAction<number>) {
+      state.longBreakInterval = action.payload;
+    },
     toggleAutoStart(
       state: PomodoroState,
       action: PayloadAction<{ name: string; active: boolean }>
@@ -100,8 +103,13 @@ const pomodoroSlice = createSlice({
   },
 });
 
-export const { changeStatus, changeStageId, changeNextStage, toggleAutoStart } =
-  pomodoroSlice.actions;
+export const {
+  changeStatus,
+  changeStageId,
+  changeNextStage,
+  toggleAutoStart,
+  changeInterval,
+} = pomodoroSlice.actions;
 
 export const selectPomodoroId = (state: RootState) => state.pomodoro.stageId;
 export const selectPomodoro = (state: RootState) => state.pomodoro;

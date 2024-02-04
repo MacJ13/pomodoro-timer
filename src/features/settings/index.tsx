@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectOpen, toggleSettings } from "../../redux/settingsSlice";
 import ChangeDuration from "./ChangeDuration";
 import ChangeAutoStart from "./ChangeAutoStart";
+import ChangeInterval from "./ChangeInterval";
 
 const Settings = () => {
   const isOpen = useSelector(selectOpen);
@@ -34,6 +35,7 @@ const Settings = () => {
         </SettingsBar>
         <ChangeDuration />
         <ChangeAutoStart />
+        <ChangeInterval />
       </Content>
     </Modal>
   );
