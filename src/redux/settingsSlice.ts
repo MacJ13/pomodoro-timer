@@ -33,4 +33,8 @@ export const selectOpen = (state: RootState) =>
 export const selectTheme = (state: RootState) =>
   Boolean(state.settings.isOpenTheme);
 
+export const getStageId = (state: RootState) => state.settings.stageId;
+
+export const getStageColor = (state: RootState) => state.settings.stageColor;
+
 export default settingsSlice.reducer;

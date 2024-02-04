@@ -24,14 +24,29 @@ const stagesSlice = createSlice({
       ) as Stage;
       foundStage.duration = action.payload.newDuration;
     },
+    changeStageColor(
+      state,
+      action: PayloadAction<{ id: StageId; newColor: string }>
+    ) {
+      const foundStage = state.find(
+        (stage) => stage.id === action.payload.id
+      ) as Stage;
+      foundStage.color = action.payload.newColor;
+    },
   },
 });
 
-export const { changeStageTime } = stagesSlice.actions;
+export const { changeStageTime, changeStageColor } = stagesSlice.actions;
 
 export const selectAllStages = (state: RootState) => state.stages;
 
-export const selectStageById = (state: RootState, id: string | number) =>
+export const selectStageById = (state: RootState, id: StageId) =>
   state.stages.find((stage) => stage.id === id);
+
+export const selectStageColor = (state: RootState, id: StageId) => {
+  const stage = selectStageById(state, id) as Stage;
+
+  return stage.color;
+};
 
 export default stagesSlice.reducer;
