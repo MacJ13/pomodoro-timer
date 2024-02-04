@@ -14,3 +14,8 @@ export type ChildrenProps = {
 };
 
 export type RowProps = { title: string } & ChildrenProps;
+
+export type ToggleButtonProps = {
+  active: boolean;
+  onClick: (active: boolean) => void;
+};
