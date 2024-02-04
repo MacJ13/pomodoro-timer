@@ -10,26 +10,22 @@ const Settings = () => {
   const isOpen = useSelector(selectOpen);
   const dispatch = useDispatch();
 
+  const closeSettings = () => {
+    dispatch(toggleSettings());
+  };
+
+  const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   if (!isOpen) return null;
 
   return (
-    <Modal
-      onClick={() => {
-        dispatch(toggleSettings());
-      }}
-    >
-      <Content
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
+    <Modal onClick={closeSettings}>
+      <Content onClick={stopPropagation}>
         <SettingsBar>
           <Title>Settings</Title>
-          <CloseButton
-            onClick={() => {
-              dispatch(toggleSettings());
-            }}
-          >
+          <CloseButton onClick={closeSettings}>
             <CloseSvg />
           </CloseButton>
         </SettingsBar>
