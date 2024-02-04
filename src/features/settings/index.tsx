@@ -3,6 +3,7 @@ import CloseSvg from "../../assets/icons/close.svg?react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectOpen, toggleSettings } from "../../redux/settingsSlice";
 import ChangeDuration from "./ChangeDuration";
+import ChangeAutoStart from "./ChangeAutoStart";
 
 const Settings = () => {
   const isOpen = useSelector(selectOpen);
@@ -32,6 +33,7 @@ const Settings = () => {
           </CloseButton>
         </SettingsBar>
         <ChangeDuration />
+        <ChangeAutoStart />
       </Content>
     </Modal>
   );

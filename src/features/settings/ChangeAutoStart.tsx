@@ -1,11 +1,13 @@
-import { useSelector } from "react-redux";
-import { selectPomodoro } from "../../redux/pomodoroSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectPomodoro, toggleAutoStart } from "../../redux/pomodoroSlice";
 import SettingsRow from "./SettingsRow";
 import ToggleButton from "./ToggleButton";
 import { getTitleWords } from "../../helpers/helpers";
 
 const ChangeAutoStart = () => {
   const { autoStartBreaks, autoStartPomodoros } = useSelector(selectPomodoro);
+
+  const dispatch = useDispatch();
 
   const renderedAutoStart = Object.entries({
     autoStartBreaks,
@@ -19,7 +21,9 @@ const ChangeAutoStart = () => {
       <SettingsRow key={name} title={title}>
         <ToggleButton
           active={value}
-          onClick={(active) => console.log("click: ", active)}
+          onClick={(active) => {
+            dispatch(toggleAutoStart({ name, active }));
+          }}
         />
       </SettingsRow>
     );

@@ -2,7 +2,12 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { StageId, Status } from "../types/types";
 
+// interface PomodoroStateKeys {
+//   [key: string]: string | number | boolean;
+// }
+
 interface PomodoroState {
+  [key: string]: string | number | boolean;
   status: Status;
   stageId: StageId;
   longBreakInterval: number;
@@ -66,6 +71,12 @@ const pomodoroSlice = createSlice({
       state.stageId = action.payload;
       state.status = "pause";
     },
+    toggleAutoStart(
+      state: PomodoroState,
+      action: PayloadAction<{ name: string; active: boolean }>
+    ) {
+      state[action.payload.name as keyof PomodoroState] = action.payload.active;
+    },
     changeNextStage(state) {
       if (state.stageId === "pomodoro") {
         state.stageId =
@@ -89,7 +100,7 @@ const pomodoroSlice = createSlice({
   },
 });
 
-export const { changeStatus, changeStageId, changeNextStage } =
+export const { changeStatus, changeStageId, changeNextStage, toggleAutoStart } =
   pomodoroSlice.actions;
 
 export const selectPomodoroId = (state: RootState) => state.pomodoro.stageId;
