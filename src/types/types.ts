@@ -10,7 +10,7 @@ export type Stage = {
 };
 
 export type ChildrenProps = {
-  children: React.ReactElement | React.ReactElement[];
+  children?: React.ReactElement | React.ReactElement[];
 };
 
 export type RowProps = { title: string } & ChildrenProps;
