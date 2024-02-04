@@ -4,17 +4,24 @@ import { RootState } from "./store";
 const settingsSlice = createSlice({
   name: "settings",
   initialState: {
-    isOpen: false,
+    isOpenSettings: false,
+    isOpenTheme: false,
   },
   reducers: {
     toggleSettings(state) {
-      state.isOpen = !state.isOpen;
+      state.isOpenSettings = !state.isOpenSettings;
+    },
+    toggleTheme(state) {
+      state.isOpenTheme = !state.isOpenTheme;
     },
   },
 });
 
-export const { toggleSettings } = settingsSlice.actions;
+export const { toggleSettings, toggleTheme } = settingsSlice.actions;
 
-export const selectOpen = (state: RootState) => Boolean(state.settings.isOpen);
+export const selectOpen = (state: RootState) =>
+  Boolean(state.settings.isOpenSettings);
+export const selectTheme = (state: RootState) =>
+  Boolean(state.settings.isOpenTheme);
 
 export default settingsSlice.reducer;
