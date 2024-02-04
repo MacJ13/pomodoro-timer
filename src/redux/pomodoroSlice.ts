@@ -80,9 +80,9 @@ const pomodoroSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(startAutoCountdown.pending, (state) => {
-        state.status = "pause";
-      })
+      // .addCase(startAutoCountdown.pending, (state) => {
+      //   state.status = "pause";
+      // })
       .addCase(startAutoCountdown.fulfilled, (state) => {
         state.status = "start";
       });
