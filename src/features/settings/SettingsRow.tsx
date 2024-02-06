@@ -22,6 +22,8 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 `;
 
 export default SettingsRow;
