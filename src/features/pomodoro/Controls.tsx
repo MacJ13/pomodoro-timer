@@ -10,6 +10,7 @@ import {
   changeNextStage,
   changeStatus,
   getStatus,
+  pauseSound,
 } from "../../redux/pomodoroSlice";
 
 type ControlsProps = {
@@ -25,7 +26,7 @@ const Controls = ({ repeat }: ControlsProps) => {
 
   return (
     <Bar>
-      <Button disabled={isStart} onClick={repeat}>
+      <Button disabled={!isStart} onClick={repeat}>
         <RepeatSvg />
       </Button>
 
@@ -37,7 +38,13 @@ const Controls = ({ repeat }: ControlsProps) => {
         {isStart ? <PauseSvg /> : <PlaySvg />}
       </Button>
 
-      <Button disabled={isStart} onClick={() => dispatch(changeNextStage())}>
+      <Button
+        disabled={!isStart}
+        onClick={() => {
+          dispatch(changeNextStage());
+          dispatch(pauseSound());
+        }}
+      >
         <NextSvg />
       </Button>
     </Bar>
