@@ -22,7 +22,9 @@ const SettingsTheme = () => {
           openChangeSettings(stage.id, stage.color);
         }}
         $current={stage.color}
-      />
+      >
+        {stage.name}
+      </ThemeButton>
     );
   });
 
@@ -34,15 +36,19 @@ const SettingsTheme = () => {
 };
 
 const ThemeButton = styled.button<{ $current: string }>`
-  border-radius: 0.45rem;
+  border-radius: 0.25rem;
 
   background-color: ${(props) => `${props.$current}`};
 
   height: 2.2rem;
+  font-size: 0.725rem;
+  font-weight: 500;
 
   margin-left: 1rem;
+  color: white;
+  width: 4.5rem;
 
-  width: 2.25rem;
+  //   width: 2.25rem;
 `;
 
 export default SettingsTheme;
