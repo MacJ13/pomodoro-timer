@@ -66,10 +66,22 @@ const pomodoroSlice = createSlice({
       state.status = state.status === "start" ? "pause" : "start";
     },
     changeStageId(state, action: PayloadAction<StageId>) {
-      if (state.stageId === action.payload) return;
+      if (state.stageId === action.payload) {
+        return;
+      }
 
       state.stageId = action.payload;
       state.status = "pause";
+
+      if (action.payload === "pomodoro" && state.round > 1) {
+        state.round += 0.5;
+      } else if (action.payload !== "pomodoro" && state.round > 1.5) {
+        state.round -= 0.5;
+      }
+
+      if (state.playingAlarm) {
+        state.playingAlarm = false;
+      }
     },
     changeInterval(state, action: PayloadAction<number>) {
       state.longBreakInterval = action.payload;
@@ -86,9 +98,8 @@ const pomodoroSlice = createSlice({
           state.round % state.longBreakInterval === 0 ? "long" : "short";
       } else {
         state.stageId = "pomodoro";
-        state.round += 1;
       }
-
+      state.round += 0.5;
       state.status = "pause";
     },
   },
@@ -114,5 +125,6 @@ export const {
 export const selectPomodoroId = (state: RootState) => state.pomodoro.stageId;
 export const selectPomodoro = (state: RootState) => state.pomodoro;
 export const getStatus = (state: RootState) => state.pomodoro.status;
+export const getRound = (state: RootState) => state.pomodoro.round;
 
 export default pomodoroSlice.reducer;
