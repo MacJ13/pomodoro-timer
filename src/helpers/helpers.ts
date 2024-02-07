@@ -19,5 +19,5 @@ export function getTitleWords(value: string): string {
 export function getFilename(value: string): string {
   const regex = /\//gi;
   const name = value.replace(regex, ".").split(".").slice(-2).shift() as string;
-  return capitalize(name);
+  return name;
 }

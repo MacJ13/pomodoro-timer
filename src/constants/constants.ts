@@ -1,13 +1,26 @@
 import { getFilename } from "../helpers/helpers";
 
-export const SOUNDS = Object.keys(import.meta.glob("../assets/audio/*")).map(
-  (sound) => {
-    const name = getFilename(sound);
+import Clock from "src/assets/audio/cardinal.mp3";
+import Bird from "src/assets/audio/clock.mp3";
+import Rooster from "src/assets/audio/rooster.mp3";
 
-    return { src: sound, name };
-  }
-);
+export const SOUNDS = [Clock, Bird, Rooster].map((sound) => {
+  console.log(sound);
+  const name = getFilename(sound);
 
+  return { src: sound, name };
+});
+
+// export const SOUNDS = Object.keys(
+//   import.meta.glob("~/src/assets/audio/*", { eager: true, as: "raw" })
+// ).map((sound) => {
+//   console.log(sound);
+//   const name = getFilename(sound);
+
+//   return { src: sound, name };
+// });
+
+export const INITIAL_SOUND_SRC = SOUNDS[1].src;
 export const THEMES: string[] = [
   "#c65151",
   "#258749",

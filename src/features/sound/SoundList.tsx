@@ -2,19 +2,36 @@ import styled from "styled-components";
 import { SOUNDS } from "../../constants/constants";
 import DropdownSvg from "../../assets/icons/dropdown.svg?react";
 import { useState } from "react";
-import { capitalize } from "../../helpers/helpers";
+import { capitalize, getFilename } from "../../helpers/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { changeSound, getSource } from "../../redux/soundSlice";
 
 const SoundList = () => {
+  const source = useSelector(getSource);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+
+  const changeSoundAlert = (name: string) => {
+    dispatch(changeSound(name));
+    setOpen(false);
+  };
 
   const soundItems = SOUNDS.map((sound) => {
     const buttonText = capitalize(sound.name as string);
     return (
       <Item key={sound.name}>
-        <SoundButton>{buttonText}</SoundButton>
+        <SoundButton
+          onClick={() => {
+            changeSoundAlert(sound.src);
+          }}
+        >
+          {buttonText}
+        </SoundButton>
       </Item>
     );
   });
+
+  const currentSoundName = capitalize(getFilename(source));
 
   const toggleSoundList = () => {
     setOpen(!open);
@@ -26,7 +43,7 @@ const SoundList = () => {
 
   return (
     <Dropdown onClick={toggleSoundList}>
-      Bird <DropdownSvg />
+      {currentSoundName} <DropdownSvg />
       {open && <List onClick={stopPropagation}>{soundItems}</List>}
     </Dropdown>
   );
