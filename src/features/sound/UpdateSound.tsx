@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-import SoundList from "../sound/SoundList";
-import RepeatSound from "../sound/RepeatSound";
+import SoundList from "./SoundList";
+import RepeatSound from "./RepeatSound";
 import SoundVolume from "./SoundVolume";
 
-const ChangeSound = () => {
+const UpdateSound = () => {
   return (
     <Wrapper>
       <SoundList />
@@ -21,4 +21,4 @@ const Wrapper = styled.div`
   gap: 1rem;
 `;
 
-export default ChangeSound;
+export default UpdateSound;
