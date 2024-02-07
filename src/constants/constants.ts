@@ -1,7 +1,8 @@
+import { getFilename } from "../helpers/helpers";
+
 export const SOUNDS = Object.keys(import.meta.glob("../assets/audio/*")).map(
   (sound) => {
-    const regex = /\//gi;
-    const name = sound.replace(regex, ".").split(".").slice(-2).shift();
+    const name = getFilename(sound);
 
     return { src: sound, name };
   }
