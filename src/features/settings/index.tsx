@@ -13,6 +13,7 @@ import ChangeInterval from "./ChangeInterval";
 import SettingsTheme from "./SettingsTheme";
 import ChangeThemes from "./ChangeThemes";
 import SettingsHeading from "./SettingsHeading";
+import SettingsSound from "./SettingsSound";
 
 const Settings = () => {
   const openSettings = useSelector(selectOpen);
@@ -49,6 +50,7 @@ const Settings = () => {
       <ChangeDuration />
       <ChangeAutoStart />
       <ChangeInterval />
+      <SettingsSound />
       <SettingsTheme />
     </>
   );
