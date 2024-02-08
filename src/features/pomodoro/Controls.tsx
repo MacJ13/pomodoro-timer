@@ -12,6 +12,8 @@ import {
   getStatus,
 } from "../../redux/pomodoroSlice";
 
+import { stopSound } from "../../redux/soundSlice";
+
 type ControlsProps = {
   repeat: () => void;
 };
@@ -25,19 +27,26 @@ const Controls = ({ repeat }: ControlsProps) => {
 
   return (
     <Bar>
-      <Button disabled={isStart} onClick={repeat}>
+      <Button disabled={!isStart} onClick={repeat}>
         <RepeatSvg />
       </Button>
 
       <Button
         onClick={() => {
           dispatch(changeStatus());
+          dispatch(stopSound());
         }}
       >
         {isStart ? <PauseSvg /> : <PlaySvg />}
       </Button>
 
-      <Button disabled={isStart} onClick={() => dispatch(changeNextStage())}>
+      <Button
+        disabled={!isStart}
+        onClick={() => {
+          dispatch(changeNextStage());
+          dispatch(stopSound());
+        }}
+      >
         <NextSvg />
       </Button>
     </Bar>

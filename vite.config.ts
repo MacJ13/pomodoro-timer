@@ -6,4 +6,10 @@ import svgr from "vite-plugin-svgr";
 export default defineConfig({
   plugins: [react(), svgr()],
   base: "/pomodoro-timer/",
+  resolve: {
+    alias: {
+      src: "/src",
+      // assets: "/src/assets",
+    },
+  },
 });

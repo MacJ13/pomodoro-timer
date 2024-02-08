@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { changeStageTime, selectAllStages } from "../../redux/stagesSlice";
 import styled from "styled-components";
-import Settings from "./SettingsInput";
+import SettingsInput from "./SettingsInput";
 import SettingsRow from "./SettingsRow";
 import { capitalize } from "../../helpers/helpers";
 
@@ -16,7 +16,7 @@ const ChangeDuration = () => {
     return (
       <Stage key={stage.id}>
         <Label>{name}</Label>
-        <Settings
+        <SettingsInput
           count={minute}
           onChange={(newMinute) => {
             const newDuration = newMinute * 60;
