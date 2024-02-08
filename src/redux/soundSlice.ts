@@ -10,9 +10,9 @@ interface SoundState {
 
 const initialState: SoundState = {
   playing: false,
-  volume: 50,
+  volume: 0.5,
   src: INITIAL_SOUND_SRC,
-  repeat: 2,
+  repeat: 1,
 };
 
 const soundSlice = createSlice({
@@ -29,14 +29,20 @@ const soundSlice = createSlice({
       state.src = action.payload;
       state.playing = true;
     },
+    updateRepeat(state, action: PayloadAction<number>) {
+      state.repeat = action.payload;
+    },
   },
 });
 
-export const { playSound, stopSound, changeSource } = soundSlice.actions;
+export const { playSound, stopSound, changeSource, updateRepeat } =
+  soundSlice.actions;
 
 export const selectSound = (state: RootState) => state.sound;
 
 export const getSource = (state: RootState) => state.sound.src;
+
+export const getRepeat = (state: RootState) => state.sound.repeat;
 
 export const getPlayingStatus = (state: RootState) => state.sound.src;
 

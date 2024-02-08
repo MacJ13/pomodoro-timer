@@ -1,10 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { selectOpen } from "src/redux/settingsSlice";
 
 import { selectSound, stopSound } from "src/redux/soundSlice";
 
 const SoundEffect = () => {
-  const { playing, src } = useSelector(selectSound);
+  const { playing, src, repeat } = useSelector(selectSound);
+  const openSetting = useSelector(selectOpen);
+
   const dispatch = useDispatch();
   const audioRef = useRef<HTMLAudioElement>(new Audio(src));
 
@@ -20,7 +23,7 @@ const SoundEffect = () => {
   };
 
   useEffect(() => {
-    let count = 1;
+    let count = openSetting ? 1 : repeat;
     let interval: number;
 
     const customPlay = () => {
