@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { INITIAL_SOUND_SRC } from "../constants/constants";
 interface SoundState {
@@ -25,10 +25,14 @@ const soundSlice = createSlice({
     stopSound(state) {
       state.playing = false;
     },
+    changeSource(state, action: PayloadAction<string>) {
+      state.src = action.payload;
+      state.playing = true;
+    },
   },
 });
 
-export const { playSound, stopSound } = soundSlice.actions;
+export const { playSound, stopSound, changeSource } = soundSlice.actions;
 
 export const selectSound = (state: RootState) => state.sound;
 

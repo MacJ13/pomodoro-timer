@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { INITIAL_SOUND_SRC } from "src/constants/constants";
 
 import { selectSound, stopSound } from "src/redux/soundSlice";
 
 const SoundEffect = () => {
-  const { playing } = useSelector(selectSound);
+  const { playing, src } = useSelector(selectSound);
   const dispatch = useDispatch();
-  const audioRef = useRef<HTMLAudioElement>(new Audio(INITIAL_SOUND_SRC));
+  const audioRef = useRef<HTMLAudioElement>(new Audio(src));
 
   const play = () => {
+    if (audioRef.current.src !== src) audioRef.current.src = src;
     audioRef.current.currentTime = 0;
     audioRef.current.play();
   };
@@ -42,7 +42,7 @@ const SoundEffect = () => {
       stop();
       if (interval) clearInterval(interval);
     };
-  }, [playing]);
+  }, [playing, src]);
 
   return null;
 };

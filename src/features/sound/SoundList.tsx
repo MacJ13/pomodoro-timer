@@ -4,7 +4,7 @@ import DropdownSvg from "../../assets/icons/dropdown.svg?react";
 import { useState } from "react";
 import { capitalize, getFilename } from "../../helpers/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { changeSound, getSource } from "../../redux/soundSlice";
+import { changeSource, getSource } from "../../redux/soundSlice";
 
 const SoundList = () => {
   const source = useSelector(getSource);
@@ -12,7 +12,7 @@ const SoundList = () => {
   const [open, setOpen] = useState(false);
 
   const changeSoundAlert = (name: string) => {
-    dispatch(changeSound(name));
+    dispatch(changeSource(name));
     setOpen(false);
   };
 
