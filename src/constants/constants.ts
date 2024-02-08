@@ -5,7 +5,6 @@ import Bird from "src/assets/audio/clock.mp3";
 import Rooster from "src/assets/audio/rooster.mp3";
 
 export const SOUNDS = [Clock, Bird, Rooster].map((sound) => {
-  console.log(sound);
   const name = getFilename(sound);
 
   return { src: sound, name };
