@@ -5,7 +5,7 @@ import { selectOpen } from "src/redux/settingsSlice";
 import { selectSound, stopSound } from "src/redux/soundSlice";
 
 const SoundEffect = () => {
-  const { playing, src, repeat } = useSelector(selectSound);
+  const { playing, src, volume, repeat } = useSelector(selectSound);
   const openSetting = useSelector(selectOpen);
 
   const dispatch = useDispatch();
@@ -13,7 +13,6 @@ const SoundEffect = () => {
 
   const play = () => {
     if (audioRef.current.src !== src) audioRef.current.src = src;
-    audioRef.current.currentTime = 0;
     audioRef.current.play();
   };
 
@@ -21,6 +20,14 @@ const SoundEffect = () => {
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
   };
+
+  useEffect(() => {
+    audioRef.current.volume = volume;
+
+    () => {
+      if (playing) dispatch(stopSound());
+    };
+  }, [volume]);
 
   useEffect(() => {
     let count = openSetting ? 1 : repeat;

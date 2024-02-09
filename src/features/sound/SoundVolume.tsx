@@ -1,17 +1,41 @@
-import { useState } from "react";
+// import { useState } from "react";
 import styled from "styled-components";
 import { SoundItem } from "./styled";
+import { useDispatch, useSelector } from "react-redux";
+import { changeVolume, playSound, selectSound } from "src/redux/soundSlice";
 
 const SoundVolume = () => {
-  const [value, setValue] = useState(50);
+  const { playing, volume } = useSelector(selectSound);
+
+  const dispatch = useDispatch();
+
+  // const [value, setValue] = useState(volume);
+
+  const updateClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    // setValue(Number(e.target.value));
+    dispatch(changeVolume(Number((e.target as HTMLInputElement).value)));
+
+    if (!playing) dispatch(playSound());
+  };
   const updateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(e.target.value));
+    // setValue(Number(e.target.value));
+    dispatch(changeVolume(Number(e.target.value)));
+
+    if (!playing) dispatch(playSound());
   };
 
   return (
     <SoundItem>
-      <label>{value}</label>
-      <Range type="range" value={value} onChange={updateValue} />
+      <label>{Math.floor(volume * 10)}</label>
+      <Range
+        type="range"
+        min="0"
+        max="1"
+        step="0.1"
+        value={volume}
+        onClick={updateClick}
+        onInput={updateValue}
+      />
     </SoundItem>
   );
 };

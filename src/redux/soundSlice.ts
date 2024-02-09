@@ -29,18 +29,29 @@ const soundSlice = createSlice({
       state.src = action.payload;
       state.playing = true;
     },
+    changeVolume(state, action: PayloadAction<number>) {
+      state.volume = action.payload;
+      if (!state.playing) state.playing = true;
+    },
     updateRepeat(state, action: PayloadAction<number>) {
       state.repeat = action.payload;
     },
   },
 });
 
-export const { playSound, stopSound, changeSource, updateRepeat } =
-  soundSlice.actions;
+export const {
+  playSound,
+  stopSound,
+  changeSource,
+  changeVolume,
+  updateRepeat,
+} = soundSlice.actions;
 
 export const selectSound = (state: RootState) => state.sound;
 
 export const getSource = (state: RootState) => state.sound.src;
+
+export const getVolume = (state: RootState) => state.sound.volume;
 
 export const getRepeat = (state: RootState) => state.sound.repeat;
 
