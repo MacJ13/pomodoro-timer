@@ -8,13 +8,13 @@ const Navbar = () => {
 
   return (
     <Nav>
-      <NavHeading>Pomodoro timer</NavHeading>
+      <Title>Pomodoro timer</Title>
       <div>
         <Button onClick={() => dispatch(toggleSettings())}>
-          <ButtonWrapper>
+          <SvgWrapper>
             <Settings />
-          </ButtonWrapper>
-          <ButtonText className="font-normal text-sm">Settings</ButtonText>
+          </SvgWrapper>
+          <ButtonText>Settings</ButtonText>
         </Button>
       </div>
     </Nav>
@@ -22,43 +22,58 @@ const Navbar = () => {
 };
 
 const Nav = styled.nav`
-  padding: 0 1rem;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  display: flex;
   font-size: 1rem;
+  justify-content: space-between;
 
   margin: 0 auto;
   max-width: 30rem;
+  padding: 0 1rem;
   width: 100%;
 `;
 
-const NavHeading = styled.h2`
+const Title = styled.h2`
   font-size: 1.25rem;
 `;
 
 const Button = styled.button`
-  position: relative;
-  display: flex;
-  padding: 0.45rem 0.75rem;
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: transparent;
+  border: ${({ theme }) => theme.borders.slimTranslucent};
   border-radius: 0.5rem;
 
+  align-items: center;
+  display: flex;
   gap: 0.5rem;
   justify-content: space-between;
-  align-items: center;
+
+  padding: 0.5rem 1.125rem;
+
+  transition: background-color 0.25s;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.white025};
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
 `;
 
-const ButtonWrapper = styled.div`
+const SvgWrapper = styled.div`
   width: 1rem;
   height: 1rem;
+
+  & > svg {
+    display: block;
+  }
 `;
 
 const ButtonText = styled.span`
   color: #fff;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 0.775rem;
+  font-weight: 500;
+  letter-spacing: 1px;
 `;
 
 export default Navbar;

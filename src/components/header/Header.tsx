@@ -9,7 +9,7 @@ const StyledHeader = styled.header`
   position: relative;
   padding: 0.75rem 0;
   width: 100%;
-  border-bottom: 4px solid rgba(255, 255, 255, 0.25);
+  border-bottom: ${({ theme }) => theme.borders.slimTranslucent};
 `;
 
 export default Header;
