@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { changeStageId, selectPomodoroId } from "../../redux/pomodoroSlice";
 import { StageId } from "../../types/types";
+import { capitalize } from "src/helpers/helpers";
 
 const SwitchStages = () => {
   const stages = useSelector(selectAllStages);
@@ -18,13 +19,13 @@ const SwitchStages = () => {
 
   const buttonStages = stages.map((stage) => (
     <Button
-      active={currentId === stage.id}
+      $active={currentId === stage.id}
       key={stage.id}
       onClick={() => {
         changeStage(stage.id);
       }}
     >
-      {stage.name}
+      {capitalize(stage.name)}
     </Button>
   ));
 
@@ -32,21 +33,35 @@ const SwitchStages = () => {
 };
 
 const Stages = styled.div`
-  position: relative;
   display: flex;
   gap: 1rem;
   justify-content: center;
-  padding: 1.25rem 0;
-  margin: 1rem 0;
+  margin-bottom: 3rem;
+  position: relative;
 `;
 
-const Button = styled.button<{ active: boolean }>`
-  width: 7.5rem;
+const Button = styled.button<{ $active: boolean }>`
   border-radius: 0.375rem;
   padding: 0.5rem 0;
-  background-color: rgba(255, 255, 255, 0.25);
-  font-weight: ${(props) => (props.active ? 600 : 500)};
+  border: ${(props) =>
+    props.$active
+      ? props.theme.borders.slimFull
+      : props.theme.borders.slimTranslucent};
+
+  background-color: transparent;
   color: #fff;
+  font-weight: ${(props) => (props.$active ? 600 : 500)};
+
+  transition: background-color 0.25s;
+  width: 7.5rem;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
 `;
 
 export default SwitchStages;
