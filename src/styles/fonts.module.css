@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Quicksand";
+  src: url(/src/assets/fonts/Quicksand-Regular.ttf) format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url(/src/assets/fonts/Quicksand-Medium.ttf) format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: url(/src/assets//fonts/Quicksand-Bold.ttf) format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Chivo Mono";
+  src: url(/src/assets/fonts/ChivoMono-Bold.ttf) format("truetype");
+  font-weight: 700;
+}
