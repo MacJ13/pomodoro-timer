@@ -27,17 +27,17 @@ const Input = styled.input`
   // text-align: right;
   padding-left: 0.75rem;
   width: 4.5rem;
-  background-color: rgb(241, 241, 241);
+  background-color: ${({ theme }) => theme.colors.lightGrey};
   border: none;
   border-radius: 0.33rem;
-  color: rgba(0, 0, 0, 0.5);
+  color: ${({ theme }) => theme.colors.black05};
   font-size: inherit;
   font-family: inherit;
   font-weight: 600;
 
   &::-webkit-inner-spin-button {
     margin-right: 0.5rem;
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.white};
   }
 `;
 

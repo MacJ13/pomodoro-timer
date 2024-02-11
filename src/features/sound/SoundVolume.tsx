@@ -53,15 +53,15 @@ const VolumeSlider = styled.input`
   }
 
   &[type="range"]::-webkit-slider-runnable-track {
-    background: rgba(241, 241, 241);
-    border: 1px solid rgba(235, 235, 235);
+    background: ${({ theme }) => theme.colors.lightGrey};
+    border: ${({ theme }) => theme.borders.volumeSlider};
     height: 0.5rem;
     border-radius: 0.5rem;
   }
 
   &[type="range"]::-moz-range-track {
-    background: rgba(235, 235, 235);
-    border: 1px solid rgba(235, 235, 235);
+    background: ${({ theme }) => theme.colors.lightGrey};
+    border: ${({ theme }) => theme.borders.volumeSlider};
     height: 0.5rem;
     border-radius: 0.5rem;
   }
@@ -70,8 +70,8 @@ const VolumeSlider = styled.input`
     -webkit-appearance: none; /* Override default look */
     appearance: none;
     margin-top: -0.3rem; /* Centers thumb on the track */
-    background-color: white;
-    border: 1px solid rgba(235, 235, 235);
+    background-color: ${({ theme }) => theme.colors.white};
+    border: ${({ theme }) => theme.borders.volumeSlider};
     box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.175);
     height: 1rem;
     width: 1rem;

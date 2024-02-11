@@ -68,7 +68,6 @@ const CloseButton = styled.button`
   position: relative;
   height: 1.25rem;
   width: 1.25rem;
-  fill: rgba(0, 0, 0, 1);
   background: none;
 
   opacity: 0.25;
@@ -86,7 +85,7 @@ const Modal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: ${({ theme }) => theme.colors.black025};
   overflow-y: scroll;
   z-index: 5;
 `;

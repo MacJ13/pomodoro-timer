@@ -18,7 +18,7 @@ const SettingsHeading = ({ title, children }: SettingsHeadingProps) => {
 };
 
 const Heading = styled.div`
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: ${({ theme }) => theme.borders.greySlim};
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
 `;

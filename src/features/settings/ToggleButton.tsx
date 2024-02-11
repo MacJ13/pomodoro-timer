@@ -24,8 +24,8 @@ const Button = styled.button<{ $active: boolean }>`
   height: 2.2rem;
 
   border-radius: 1.5rem;
-  background-color: ${({ $active }) =>
-    !$active ? "rgb(241, 241, 241)" : "#81ea44"};
+  background-color: ${({ $active, theme }) =>
+    !$active ? theme.colors.lightGrey : theme.colors.lightGreen};
 `;
 
 const Switch = styled.div<{ $active: boolean }>`
@@ -36,7 +36,7 @@ const Switch = styled.div<{ $active: boolean }>`
   left: ${({ $active }) =>
     !$active ? "0.2rem" : "calc(100% - 2.2rem + 0.2rem)"};
 
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 50%;
   box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.175);
 `;

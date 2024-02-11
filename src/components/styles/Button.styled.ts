@@ -10,7 +10,7 @@ export const Button = styled.button`
   transition: background-color 0.25s;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: ${({ theme }) => theme.colors.white025};
   }
 
   &:active {

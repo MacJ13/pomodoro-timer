@@ -45,7 +45,7 @@ const ThemeButton = styled(Button)<{ $current: string }>`
 
   padding: 0.66rem 0.5rem;
   // margin-left: 1rem;
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
   width: 5rem;
 
   &:hover {

@@ -14,7 +14,7 @@ const SettingsRow = ({ title, children }: RowProps) => {
 };
 
 const Title = styled.h3`
-  color: rgba(0, 0, 0, 0.375);
+  color: ${({ theme }) => theme.colors.black0375};
   font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -23,7 +23,7 @@ const Title = styled.h3`
 const Row = styled.div`
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: ${({ theme }) => theme.borders.greySlim};
 `;
 
 export default SettingsRow;

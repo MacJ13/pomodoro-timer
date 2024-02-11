@@ -54,9 +54,9 @@ const SoundList = () => {
 
 const Dropdown = styled.div<{ $open: boolean }>`
   position: relative;
-  background-color: rgb(241, 241, 241);
+  background-color: ${({ theme }) => theme.colors.lightGrey};
   border-radius: 0.25rem;
-  color: rgba(0, 0, 0, 0.5);
+  color: ${({ theme }) => theme.colors.black05};
 
   font-size: 0.9rem;
   font-weight: 600;
@@ -77,7 +77,6 @@ const Dropdown = styled.div<{ $open: boolean }>`
   
       content: "";
       position: fixed;
-      // background-color: grey;
       height: 100%;
       width: 100%;
       left: 0;
@@ -90,7 +89,7 @@ const Dropdown = styled.div<{ $open: boolean }>`
 `;
 
 const List = styled.ul`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
   position: absolute;
   list-style: none;
   top: 100%;
@@ -109,8 +108,8 @@ const Item = styled.li`
   color: rgba(0, 0, 0, 0.5);
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.25);
-    color: white;
+    background-color: ${({ theme }) => theme.colors.black025};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 
@@ -119,7 +118,6 @@ const Button = styled.button`
   width: 100%;
   background-color: transparent;
   color: inherit;
-  fill: rgba(0, 0, 0, 0.5);
   font-size: 0.9rem;
   font-family: inherit;
   font-weight: 600;
