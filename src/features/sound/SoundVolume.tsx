@@ -1,46 +1,49 @@
-// import { useState } from "react";
 import styled from "styled-components";
-import { SoundItem } from "./styled";
 import { useDispatch, useSelector } from "react-redux";
 import { changeVolume, playSound, selectSound } from "src/redux/soundSlice";
+
+import { Label } from "src/components/styles/Label.styled";
+import { Flex } from "src/components/styles/Flex.styled";
 
 const SoundVolume = () => {
   const { playing, volume } = useSelector(selectSound);
 
   const dispatch = useDispatch();
 
-  // const [value, setValue] = useState(volume);
-
-  const updateClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    // setValue(Number(e.target.value));
-    dispatch(changeVolume(Number((e.target as HTMLInputElement).value)));
-
+  const updateVolumeSound = (volume: number) => {
+    dispatch(changeVolume(volume));
     if (!playing) dispatch(playSound());
   };
-  const updateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // setValue(Number(e.target.value));
-    dispatch(changeVolume(Number(e.target.value)));
 
-    if (!playing) dispatch(playSound());
+  const onClickSlider = (e: React.MouseEvent<HTMLInputElement>) => {
+    const volume = Number((e.target as HTMLInputElement).value);
+    updateVolumeSound(volume);
   };
+
+  const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const volume = Number(e.target.value);
+    updateVolumeSound(volume);
+  };
+
+  const currentVolume = Math.floor(volume * 10);
 
   return (
-    <SoundItem>
-      <label>{Math.floor(volume * 10)}</label>
-      <Range
+    <Flex $gap="1rem">
+      <Label>{currentVolume}</Label>
+      <VolumeSlider
         type="range"
         min="0"
         max="1"
         step="0.1"
         value={volume}
-        onClick={updateClick}
-        onInput={updateValue}
+        onClick={onClickSlider}
+        onInput={onChangeSlider}
       />
-    </SoundItem>
+    </Flex>
   );
 };
 
-const Range = styled.input`
+const VolumeSlider = styled.input`
   &[type="range"] {
     -webkit-appearance: none;
     appearance: none;

@@ -1,24 +1,16 @@
-import styled from "styled-components";
-
 import SoundList from "./SoundList";
 import RepeatSound from "./RepeatSound";
 import SoundVolume from "./SoundVolume";
+import { Flex } from "src/components/styles/Flex.styled";
 
 const UpdateSound = () => {
   return (
-    <Wrapper>
+    <Flex $align="flex-end" $direction="column" $gap="1rem">
       <SoundList />
       <SoundVolume />
       <RepeatSound />
-    </Wrapper>
+    </Flex>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 1rem;
-`;
 
 export default UpdateSound;

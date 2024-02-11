@@ -1,22 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
 import SettingsInput from "../settings/SettingsInput";
-import { SoundItem } from "./styled";
 import { getRepeat, updateRepeat } from "src/redux/soundSlice";
+import { Label } from "src/components/styles/Label.styled";
+import { Flex } from "src/components/styles/Flex.styled";
 
 const RepeatSound = () => {
   const repeating = useSelector(getRepeat);
   const dispatch = useDispatch();
 
   return (
-    <SoundItem>
-      <label>repeat</label>
+    <Flex $gap="1rem">
+      <Label>repeat</Label>
       <SettingsInput
         count={repeating}
         onChange={(newMinute) => {
           dispatch(updateRepeat(Number(newMinute)));
         }}
       />
-    </SoundItem>
+    </Flex>
   );
 };
 
