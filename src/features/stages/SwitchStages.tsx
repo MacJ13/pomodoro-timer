@@ -31,13 +31,12 @@ const SwitchStages = () => {
     </StageButton>
   ));
 
-  return <StageFlex>{buttonStages}</StageFlex>;
+  return <StageFlex $gap="1rem">{buttonStages}</StageFlex>;
 };
 
 const StageFlex = styled(Flex)`
-  position: relative;
-  gap: 1rem;
   margin-bottom: 3rem;
+  position: relative;
 `;
 
 const StageButton = styled(Button)<{ $active: boolean }>`
