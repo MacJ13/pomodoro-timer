@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ChildrenProps } from "../../types/types";
+import { Flex } from "src/components/styles/Flex.styled";
 
 type SettingsHeadingProps = {
   title: string;
@@ -8,28 +9,18 @@ type SettingsHeadingProps = {
 const SettingsHeading = ({ title, children }: SettingsHeadingProps) => {
   return (
     <Heading>
-      <Title>{title}</Title>
-      {children}
+      <Flex $justify="space-between">
+        <h2>{title}</h2>
+        {children}
+      </Flex>
     </Heading>
   );
 };
 
 const Heading = styled.div`
-  align-items: center;
-  display: flex;
-  gap: 2rem;
-  justify-content: space-between;
-  padding-bottom: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  margin-bottom: 1rem;
-`;
-
-const Title = styled.h2`
-  color: rgba(0, 0, 0, 0.375);
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
 `;
 
 export default SettingsHeading;

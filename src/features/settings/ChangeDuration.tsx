@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { changeStageTime, selectAllStages } from "../../redux/stagesSlice";
-import styled from "styled-components";
 import SettingsInput from "./SettingsInput";
 import SettingsRow from "./SettingsRow";
 import { capitalize } from "../../helpers/helpers";
+import { Label } from "src/components/styles/Label.styled";
+import { Flex } from "src/components/styles/Flex.styled";
 
 const ChangeDuration = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const ChangeDuration = () => {
     const name = capitalize(stage.name);
 
     return (
-      <Stage key={stage.id}>
+      <Flex key={stage.id} $gap="1rem" $justify="space-between">
         <Label>{name}</Label>
         <SettingsInput
           count={minute}
@@ -23,30 +24,17 @@ const ChangeDuration = () => {
             dispatch(changeStageTime({ id: stage.id, newDuration }));
           }}
         />
-      </Stage>
+      </Flex>
     );
   });
 
   return (
     <SettingsRow title="Timers">
-      <div>{renderedFields}</div>
+      <Flex $direction="column" $gap="0.5rem" $align="flex-end">
+        {renderedFields}
+      </Flex>
     </SettingsRow>
   );
 };
-
-const Stage = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-  width: 100%;
-`;
-
-const Label = styled.label`
-  color: rgba(0, 0, 0, 0.25);
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-right: 1rem;
-`;
 
 export default ChangeDuration;

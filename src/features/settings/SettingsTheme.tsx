@@ -4,6 +4,8 @@ import SettingsRow from "./SettingsRow";
 import styled from "styled-components";
 import { openTheme } from "../../redux/settingsSlice";
 import { StageId } from "../../types/types";
+import { Button } from "src/components/styles/Button.styled";
+import { Flex } from "src/components/styles/Flex.styled";
 
 const SettingsTheme = () => {
   const stages = useSelector(selectAllStages);
@@ -30,25 +32,25 @@ const SettingsTheme = () => {
 
   return (
     <SettingsRow title="Themes">
-      <div>{renderedButtons}</div>
+      <Flex $gap="0.75rem">{renderedButtons}</Flex>
     </SettingsRow>
   );
 };
 
-const ThemeButton = styled.button<{ $current: string }>`
-  border-radius: 0.25rem;
-
+const ThemeButton = styled(Button)<{ $current: string }>`
   background-color: ${(props) => `${props.$current}`};
 
-  height: 2.2rem;
-  font-size: 0.725rem;
+  font-size: 0.66rem;
   font-weight: 500;
 
-  margin-left: 1rem;
+  padding: 0.66rem 0.5rem;
+  // margin-left: 1rem;
   color: white;
-  width: 4.5rem;
+  width: 5rem;
 
-  //   width: 2.25rem;
+  &:hover {
+    background-color: ${(props) => `${props.$current}`};
+  }
 `;
 
 export default SettingsTheme;
