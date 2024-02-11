@@ -1,5 +1,4 @@
 import Header from "./components/header/Header";
-import Navbar from "./components/navbar/Navbar";
 import Container from "./components/Container/Container";
 import PomodoroTimer from "./features/pomodoro";
 import Settings from "./features/settings";
@@ -14,9 +13,7 @@ function App() {
       <GlobalStyle />
       <Container>
         <SoundEffect />
-        <Header>
-          <Navbar />
-        </Header>
+        <Header />
         <Settings />
         <PomodoroTimer />
       </Container>
