@@ -1,7 +1,16 @@
 import styled from "styled-components";
 
-export const Flex = styled.div`
-  align-items: center;
+type FlexProps = {
+  $align?: string;
+  $justify?: string;
+  $direction?: string;
+  $gap?: string;
+};
+
+export const Flex = styled.div<FlexProps>`
+  align-items: ${({ $align }) => $align || "center"};
   display: flex;
-  justify-content: center;
+  flex-direction: ${({ $direction }) => $direction || "row"};
+  gap: ${({ $gap }) => $gap || "0"};
+  justify-content: ${({ $justify }) => $justify || "center"};
 `;
