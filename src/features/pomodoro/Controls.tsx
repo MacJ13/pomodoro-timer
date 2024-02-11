@@ -8,6 +8,7 @@ import NextSvg from "../../assets/icons/next.svg?react";
 import { useDispatch, useSelector } from "react-redux";
 
 import SWITCH_SOUND from "src/assets/audio/switch.mp3";
+import ControlButton from "./ControlButton";
 
 import {
   changeNextStage,
@@ -17,6 +18,7 @@ import {
 
 import { stopSound } from "../../redux/soundSlice";
 import { useRef } from "react";
+import { Flex } from "src/components/styles/Flex.styled";
 
 type ControlsProps = {
   repeat: () => void;
@@ -36,42 +38,34 @@ const Controls = ({ repeat }: ControlsProps) => {
     audioRef.current.play();
   };
 
+  const toggleCountdown = () => {
+    dispatch(changeStatus());
+    dispatch(stopSound());
+    clickSound();
+  };
+
+  const updateStage = () => {
+    dispatch(changeNextStage());
+    dispatch(stopSound());
+  };
+
   return (
-    <Bar>
-      <Button disabled={!isStart} onClick={repeat}>
+    <FlexControls>
+      <ControlButton disabled={!isStart} handleButton={repeat}>
         <RepeatSvg />
-      </Button>
-
-      <Button
-        onClick={() => {
-          dispatch(changeStatus());
-          dispatch(stopSound());
-          clickSound();
-          // isStart ? dispatch(stopSound()) : dispatch(playSwitchSound());
-        }}
-      >
+      </ControlButton>
+      <ControlButton handleButton={toggleCountdown}>
         {isStart ? <PauseSvg /> : <PlaySvg />}
-      </Button>
-
-      <Button
-        disabled={!isStart}
-        onClick={() => {
-          dispatch(changeNextStage());
-          dispatch(stopSound());
-        }}
-      >
+      </ControlButton>
+      <ControlButton disabled={!isStart} handleButton={updateStage}>
         <NextSvg />
-      </Button>
-    </Bar>
+      </ControlButton>
+    </FlexControls>
   );
 };
 
-const Bar = styled.div`
-  margin-top: 2.25rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const FlexControls = styled(Flex)`
+  margin-top: 2.8rem;
   gap: 5rem;
 
   & > button:first-child,
@@ -81,30 +75,6 @@ const Bar = styled.div`
     &:active {
       opacity: 1;
     }
-  }
-`;
-
-const Button = styled.button`
-  position: relative;
-  background-color: inherit;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #fff;
-  height: 1.75rem;
-  width: 1.75rem;
-  opacity: 0.75;
-  pointer-events: auto;
-
-  transition: opacity 0.33s;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  &:disabled {
-    opacity: 0 !important;
-    pointer-events: none;
   }
 `;
 
