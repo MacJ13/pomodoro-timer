@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ChildrenProps } from "../../types/types";
-import Theme from "../theme/Theme";
+import ChangeTheme from "src/features/stages/ChangeTheme";
 
 const Wrapper = styled.div`
   position: relative;
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 const Container = ({ children }: ChildrenProps) => {
   return (
     <Wrapper>
-      <Theme />
+      <ChangeTheme />
       {children}
     </Wrapper>
   );

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Background = styled.div<{ $background: string }>`
+export const Background = styled.div<{ $background: string; $hidden: boolean }>`
   height: 100%;
   position: absolute;
   top: 0;
@@ -8,5 +8,5 @@ export const Background = styled.div<{ $background: string }>`
   width: 100%;
   background: ${(props) => props.$background};
 
-  transition: background 1s;
+  ${(props) => (!props.$hidden ? "transition: background 0.5s linear;" : "")}
 `;
