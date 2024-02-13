@@ -9,10 +9,6 @@ export const Button = styled.button`
 
   transition: background-color 0.25s;
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.white025};
-  }
-
   &:active {
     transform: translateY(2px);
   }

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Flex } from "./Flex.styled";
 import { Button } from "./Button.styled";
 
 export const Nav = styled.nav`
@@ -9,17 +8,9 @@ export const Nav = styled.nav`
   width: 100%;
 `;
 
-export const FlexNav = styled(Flex)`
-  justify-content: space-between;
-`;
-
 export const ButtonNav = styled(Button)`
-  // border: ${({ theme }) => theme.borders.slimTranslucent};
   padding: 0.5rem 1.125rem;
   font-size: 0.8rem;
+  font-weight: 600;
   border: none;
-
-  & > div {
-    gap: 0.5rem;
-  }
 `;
