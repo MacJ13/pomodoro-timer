@@ -14,6 +14,7 @@ import SettingsTheme from "./SettingsTheme";
 import ChangeThemes from "./ChangeThemes";
 import SettingsHeading from "./SettingsHeading";
 import SettingsSound from "./SettingsSound";
+import Modal from "src/components/modal/Modal";
 
 const Settings = () => {
   const openSettings = useSelector(selectOpen);
@@ -27,10 +28,6 @@ const Settings = () => {
     } else if (openSettings) {
       dispatch(toggleSettings());
     }
-  };
-
-  const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
   };
 
   if (!openSettings && !openTheme) return null;
@@ -57,9 +54,7 @@ const Settings = () => {
 
   return (
     <>
-      <Modal onClick={closeSettings}>
-        <Content onClick={stopPropagation}>{content}</Content>
-      </Modal>
+      <Modal handleClick={closeSettings}>{content}</Modal>
     </>
   );
 };
@@ -77,28 +72,6 @@ const CloseButton = styled.button`
   &:hover {
     opacity: 0.375;
   }
-`;
-
-const Modal = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.black025};
-  overflow-y: scroll;
-  z-index: 5;
-`;
-
-const Content = styled.div`
-  position: relative;
-  background-color: white;
-  border-radius: 0.75rem;
-  color: grey;
-  width: 100%;
-  max-width: 30rem;
-  margin: 2rem auto;
-  padding: 1rem 1.5rem;
 `;
 
 export default Settings;
