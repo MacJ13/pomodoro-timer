@@ -41,12 +41,16 @@ const StageFlex = styled(Flex)`
 
 const StageButton = styled(Button)<{ $active: boolean }>`
   padding: 0.5rem 0;
-  border: ${(props) =>
-    props.$active
-      ? props.theme.borders.slimFull
-      : props.theme.borders.slimTranslucent};
+
   width: 7.5rem;
+  background-color: ${({ theme, $active }) =>
+    $active ? theme.colors.white0375 : theme.colors.white025};
   font-weight: ${(props) => (props.$active ? 600 : 500)};
 `;
+
+// border: ${(props) =>
+//   props.$active
+//     ? props.theme.borders.slimFull
+//     : props.theme.borders.slimTranslucent};
 
 export default SwitchStages;
