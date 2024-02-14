@@ -1,7 +1,7 @@
 import { Flex } from "src/components/styles/Flex.styled";
 import { Icon } from "src/components/styles/Icon.styled";
 import DotsSvg from "../../assets/icons/dots.svg?react";
-import AddSvg from "../../assets/icons/addsquare.svg?react";
+import AddSvg from "../../assets/icons/add.svg?react";
 
 import styled from "styled-components";
 import { Button } from "src/components/styles/Button.styled";
@@ -35,6 +35,10 @@ const Bar = styled.div`
 
   width: 100%;
   margin-bottom: 1.5rem;
+
+  & h2 {
+    letter-spacing: 1px;
+  }
 `;
 
 const TaskButton = styled(Button)`
