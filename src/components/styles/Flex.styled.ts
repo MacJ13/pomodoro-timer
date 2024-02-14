@@ -5,6 +5,7 @@ type FlexProps = {
   $justify?: string;
   $direction?: string;
   $gap?: string;
+  $mg_bottom?: string;
 };
 
 export const Flex = styled.div<FlexProps>`
@@ -13,4 +14,5 @@ export const Flex = styled.div<FlexProps>`
   flex-direction: ${({ $direction }) => $direction || "row"};
   gap: ${({ $gap }) => $gap || "0"};
   justify-content: ${({ $justify }) => $justify || "center"};
+  ${({ $mg_bottom }) => ($mg_bottom ? `margin-bottom: ${$mg_bottom};` : "")};
 `;
