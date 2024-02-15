@@ -10,28 +10,35 @@ import TaskSquareSvg from "../../assets/icons/square.svg?react";
 
 import { Button } from "src/components/styles/Button.styled";
 import { useState } from "react";
+import { Task } from "src/types/types";
 
-const SingleTask = () => {
+type SingleTaskProps = {
+  task: Task;
+};
+
+const SingleTask = ({ task }: SingleTaskProps) => {
   const [done, setDone] = useState<boolean>(false);
+
+  const notesInTask = Boolean(task.notes);
 
   return (
     <StyledTask>
-      <Flex $justify="space-between" $mg_bottom="0.75rem">
-        <Flex $gap="0.66rem">
+      <Flex $justify="space-between" $mg_bottom={notesInTask ? "0.75rem" : ""}>
+        <Flex $gap="0.5rem">
           <Button
             onClick={() => {
               setDone(!done);
             }}
           >
             <Icon $size="1.5rem">
-              {done ? <TaskDoneSvg /> : <TaskSquareSvg />}
+              {task.done ? <TaskDoneSvg /> : <TaskSquareSvg />}
             </Icon>
           </Button>
-          <h3>Task title</h3>
+          <h3>{task.title}</h3>
         </Flex>
         <Flex $gap="1rem">
           <span>
-            0 / <strong>3</strong>
+            {task.roundsComplete} / <strong>{task.roundsTotal}</strong>
           </span>
           <Flex $gap="0.5rem">
             <Button>
@@ -47,8 +54,9 @@ const SingleTask = () => {
           </Flex>
         </Flex>
       </Flex>
-      <p style={{ marginLeft: "1rem" }}>
-        <em>This is a default note for task</em>
+
+      <p style={{ marginLeft: "2rem" }}>
+        {notesInTask && <em>{task.notes}</em>}
       </p>
     </StyledTask>
   );

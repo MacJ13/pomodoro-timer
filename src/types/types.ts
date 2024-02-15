@@ -10,7 +10,7 @@ export type Stage = {
 };
 
 export type Task = {
-  id: number;
+  id: string;
   title: string;
   notes?: string;
   roundsTotal: number;

@@ -9,13 +9,47 @@ import {
   selectCreatingTask,
   toggleCreatingTask,
 } from "src/redux/settingsSlice";
+import React, { useState } from "react";
+import { addTask } from "src/redux/tasksSlice";
 
 const CreateTask = () => {
   const isOpen = useSelector(selectCreatingTask);
+
   const dispatch = useDispatch();
+
+  const [title, setTitle] = useState<string>("");
+  const [round, setRound] = useState<number>(1);
+  const [notes, setNotes] = useState<string>("");
+
+  const clearFields = () => {
+    setTitle("");
+    setRound(1);
+    setNotes("");
+  };
+
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleChangeRound = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRound(Number(e.target.value));
+  };
+
+  const handleChangeNotes = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNotes(e.target.value);
+  };
 
   const closeModal = () => {
     dispatch(toggleCreatingTask());
+    clearFields();
+  };
+
+  const createNewTask = () => {
+    if (title) {
+      dispatch(addTask(title, round, notes));
+      closeModal();
+      clearFields();
+    }
   };
 
   if (!isOpen) return null;
@@ -27,19 +61,31 @@ const CreateTask = () => {
       </Flex>
 
       <TaskField title="Title">
-        <Input type="text" placeholder="Entry Task Name" />
+        <Input
+          type="text"
+          value={title}
+          placeholder="(Required) Task Name"
+          onChange={handleChangeTitle}
+        />
       </TaskField>
       <TaskField title="Rounds">
-        <Input type="number" min="1" onChange={() => {}} />
+        <Input
+          type="number"
+          value={round}
+          min="1"
+          onChange={handleChangeRound}
+        />
       </TaskField>
       <TaskField title="Notes">
-        <TextArea placeholder="(Optional) Notes" />
+        <TextArea
+          value={notes}
+          placeholder="(Optional) Notes"
+          onChange={handleChangeNotes}
+        />
       </TaskField>
 
       <Flex $gap="2.25rem">
-        <ControlButton handleClick={() => console.log("create")}>
-          Create
-        </ControlButton>
+        <ControlButton handleClick={createNewTask}>Create</ControlButton>
         <ControlButton handleClick={closeModal}>Cancel</ControlButton>
       </Flex>
     </Modal>
