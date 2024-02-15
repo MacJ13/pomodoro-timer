@@ -9,25 +9,26 @@ import TaskDoneSvg from "../../assets/icons/task-done.svg?react";
 import TaskSquareSvg from "../../assets/icons/square.svg?react";
 
 import { Button } from "src/components/styles/Button.styled";
-import { useState } from "react";
 import { Task } from "src/types/types";
+import { useDispatch } from "react-redux";
+import { markCompleteTask } from "src/redux/tasksSlice";
 
 type SingleTaskProps = {
   task: Task;
 };
 
 const SingleTask = ({ task }: SingleTaskProps) => {
-  const [done, setDone] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const notesInTask = Boolean(task.notes);
 
   return (
-    <StyledTask>
+    <StyledTask $complete={task.done}>
       <Flex $justify="space-between" $mg_bottom={notesInTask ? "0.75rem" : ""}>
         <Flex $gap="0.5rem">
           <Button
             onClick={() => {
-              setDone(!done);
+              dispatch(markCompleteTask(task.id));
             }}
           >
             <Icon $size="1.5rem">
@@ -62,7 +63,7 @@ const SingleTask = ({ task }: SingleTaskProps) => {
   );
 };
 
-const StyledTask = styled.div`
+const StyledTask = styled.div<{ $complete: boolean }>`
   position: relative;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.white025};
@@ -70,10 +71,16 @@ const StyledTask = styled.div`
   box-shadow: 0px 2px 1px 0px rgba(255, 255, 255, 0.15);
 
   padding: 1rem 0.75rem;
-
+  opacity: ${({ $complete }) => ($complete ? 0.8 : 1)};
   overflow: hidden;
 
   margin-bottom: 1.5rem;
+
+  & h3 {
+    font-size: 1.25rem;
+    text-decoration: ${({ $complete }) =>
+      $complete ? "line-through" : "none"};
+  }
 
   &::before {
     position: absolute;

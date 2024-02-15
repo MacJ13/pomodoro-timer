@@ -31,10 +31,16 @@ const tasksSlice = createSlice({
         };
       },
     },
+    markCompleteTask(state, action: PayloadAction<string>) {
+      const id = action.payload;
+      const task = state.tasks.find((task) => task.id === id) as Task;
+
+      task.done = !task.done;
+    },
   },
 });
 
-export const { addTask } = tasksSlice.actions;
+export const { addTask, markCompleteTask } = tasksSlice.actions;
 
 export const selectAllTasks = (state: RootState) => state.tasks.tasks;
 
