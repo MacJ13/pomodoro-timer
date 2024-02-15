@@ -5,12 +5,20 @@ import AddSvg from "../../assets/icons/add.svg?react";
 
 import styled from "styled-components";
 import { Button } from "src/components/styles/Button.styled";
+import { useDispatch } from "react-redux";
+import { toggleCreatingTask } from "src/redux/settingsSlice";
 
 const TaskBar = () => {
+  const dispatch = useDispatch();
+
+  const openModal = () => {
+    dispatch(toggleCreatingTask());
+  };
+
   return (
     <Bar>
       <Flex $justify="space-between">
-        <TaskButton>
+        <TaskButton onClick={openModal}>
           <Icon $size="1.75rem">
             <AddSvg />
           </Icon>

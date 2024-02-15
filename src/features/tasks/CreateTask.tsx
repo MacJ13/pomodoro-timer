@@ -4,10 +4,24 @@ import { Flex } from "src/components/styles/Flex.styled";
 import TaskField from "./TaskField";
 import { Input, TextArea } from "src/components/styles/Field.styled";
 import ControlButton from "./ControlButton";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCreatingTask,
+  toggleCreatingTask,
+} from "src/redux/settingsSlice";
 
 const CreateTask = () => {
+  const isOpen = useSelector(selectCreatingTask);
+  const dispatch = useDispatch();
+
+  const closeModal = () => {
+    dispatch(toggleCreatingTask());
+  };
+
+  if (!isOpen) return null;
+
   return (
-    <Modal handleClick={() => console.log("click")}>
+    <Modal handleClick={closeModal}>
       <Flex $mg_bottom="1rem">
         <h2>Add Task</h2>
       </Flex>
@@ -16,7 +30,7 @@ const CreateTask = () => {
         <Input type="text" placeholder="Entry Task Name" />
       </TaskField>
       <TaskField title="Rounds">
-        <Input type="number" value="0" onChange={() => {}} />
+        <Input type="number" min="1" onChange={() => {}} />
       </TaskField>
       <TaskField title="Notes">
         <TextArea placeholder="(Optional) Notes" />
@@ -26,9 +40,7 @@ const CreateTask = () => {
         <ControlButton handleClick={() => console.log("create")}>
           Create
         </ControlButton>
-        <ControlButton handleClick={() => console.log("create")}>
-          Cancel
-        </ControlButton>
+        <ControlButton handleClick={closeModal}>Cancel</ControlButton>
       </Flex>
     </Modal>
   );
