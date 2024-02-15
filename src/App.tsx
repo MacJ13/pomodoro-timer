@@ -6,6 +6,7 @@ import SoundEffect from "./features/sound";
 import GlobalStyle from "./styles/globalStyles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/Theme";
+import Task from "./features/tasks";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Header />
         <Settings />
         <PomodoroTimer />
+        <Task />
       </Container>
     </ThemeProvider>
   );
