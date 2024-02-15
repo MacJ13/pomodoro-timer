@@ -9,6 +9,15 @@ export type Stage = {
   color: string;
 };
 
+export type Task = {
+  id: number;
+  title: string;
+  notes?: string;
+  roundsTotal: number;
+  roundsComplete: number;
+  done: boolean;
+};
+
 export type ChildrenProps = {
   children?: React.ReactElement | React.ReactElement[];
 };

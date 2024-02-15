@@ -3,6 +3,7 @@ import stagesReducer from "./stagesSlice";
 import pomodoroReducer from "./pomodoroSlice";
 import settingsReducer from "./settingsSlice";
 import soundReducer from "./soundSlice";
+import tasksReducer from "./tasksSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     pomodoro: pomodoroReducer,
     settings: settingsReducer,
     sound: soundReducer,
+    tasks: tasksReducer,
   },
 });
 
