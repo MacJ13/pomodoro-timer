@@ -49,6 +49,11 @@ const tasksSlice = createSlice({
       task.roundsTotal = round;
       if (completeRound) task.roundsComplete = completeRound;
     },
+    deleteTask(state, action: PayloadAction<string>) {
+      const id = action.payload;
+
+      state.tasks = state.tasks.filter((task) => task.id !== id);
+    },
     markCompleteTask(state, action: PayloadAction<string>) {
       const id = action.payload;
       const task = state.tasks.find((task) => task.id === id);
@@ -59,7 +64,8 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { addTask, markCompleteTask, updateTask } = tasksSlice.actions;
+export const { addTask, markCompleteTask, updateTask, deleteTask } =
+  tasksSlice.actions;
 
 export const selectAllTasks = (state: RootState) => state.tasks.tasks;
 
