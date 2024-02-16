@@ -12,7 +12,10 @@ import { Button } from "src/components/styles/Button.styled";
 import { Task } from "src/types/types";
 import { useDispatch } from "react-redux";
 import { markCompleteTask } from "src/redux/tasksSlice";
-import { toggleUpdatingTask } from "src/redux/settingsSlice";
+import {
+  toggleDeletingTask,
+  toggleUpdatingTask,
+} from "src/redux/settingsSlice";
 
 type SingleTaskProps = {
   task: Task;
@@ -56,7 +59,11 @@ const SingleTask = ({ task }: SingleTaskProps) => {
                 <EditSvg />
               </Icon>
             </Button>
-            <Button>
+            <Button
+              onClick={() => {
+                dispatch(toggleDeletingTask(task.id));
+              }}
+            >
               <Icon $size="1.33rem">
                 <DeleteSvg />
               </Icon>

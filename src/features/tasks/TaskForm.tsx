@@ -1,19 +1,19 @@
 import { useSelector } from "react-redux";
-import {
-  selectCreatingTask,
-  selectUpdatingTask,
-} from "src/redux/settingsSlice";
+import { getOpeningTasks } from "src/redux/settingsSlice";
 import CreateTask from "./CreateTask";
 import UpdateTask from "./UpdateTask";
+import DeleteTask from "./DeleteTask";
 
 const TaskForm = () => {
-  const creating = useSelector(selectCreatingTask);
-  const updating = useSelector(selectUpdatingTask);
+  const { openCreating, openUpdating, openDeleting } =
+    useSelector(getOpeningTasks);
 
-  if (creating) {
+  if (openCreating) {
     return <CreateTask />;
-  } else if (updating) {
+  } else if (openUpdating) {
     return <UpdateTask />;
+  } else if (openDeleting) {
+    return <DeleteTask />;
   } else null;
 };
 
