@@ -4,17 +4,12 @@ import { Flex } from "src/components/styles/Flex.styled";
 import TaskField from "./TaskField";
 import { Input, TextArea } from "src/components/styles/Field.styled";
 import ControlButton from "./ControlButton";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectCreatingTask,
-  toggleCreatingTask,
-} from "src/redux/settingsSlice";
+import { useDispatch } from "react-redux";
+import { toggleCreatingTask } from "src/redux/settingsSlice";
 import React, { useState } from "react";
 import { addTask } from "src/redux/tasksSlice";
 
 const CreateTask = () => {
-  const isOpen = useSelector(selectCreatingTask);
-
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState<string>("");
@@ -52,8 +47,6 @@ const CreateTask = () => {
     }
   };
 
-  if (!isOpen) return null;
-
   return (
     <Modal handleClick={closeModal}>
       <Flex $mg_bottom="1rem">
@@ -65,6 +58,7 @@ const CreateTask = () => {
           type="text"
           value={title}
           placeholder="(Required) Task Name"
+          maxLength={25}
           onChange={handleChangeTitle}
         />
       </TaskField>

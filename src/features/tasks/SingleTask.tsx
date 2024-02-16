@@ -12,6 +12,7 @@ import { Button } from "src/components/styles/Button.styled";
 import { Task } from "src/types/types";
 import { useDispatch } from "react-redux";
 import { markCompleteTask } from "src/redux/tasksSlice";
+import { toggleUpdatingTask } from "src/redux/settingsSlice";
 
 type SingleTaskProps = {
   task: Task;
@@ -24,7 +25,11 @@ const SingleTask = ({ task }: SingleTaskProps) => {
 
   return (
     <StyledTask $complete={task.done}>
-      <Flex $justify="space-between" $mg_bottom={notesInTask ? "0.75rem" : ""}>
+      <Flex
+        $justify="space-between"
+        $gap="0.5rem"
+        $mg_bottom={notesInTask ? "0.75rem" : ""}
+      >
         <Flex $gap="0.5rem">
           <Button
             onClick={() => {
@@ -42,7 +47,11 @@ const SingleTask = ({ task }: SingleTaskProps) => {
             {task.roundsComplete} / <strong>{task.roundsTotal}</strong>
           </span>
           <Flex $gap="0.5rem">
-            <Button>
+            <Button
+              onClick={() => {
+                dispatch(toggleUpdatingTask(task.id));
+              }}
+            >
               <Icon $size="1.33rem">
                 <EditSvg />
               </Icon>

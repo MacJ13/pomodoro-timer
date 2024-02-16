@@ -9,10 +9,20 @@ const settingsSlice = createSlice({
     isOpenSettings: false,
     isOpenTheme: false,
     openCreatingTask: false,
+    openUpdatingTask: false,
     stageId: "" as StageId,
+    taskId: "",
     stageColor: "",
   },
   reducers: {
+    toggleUpdatingTask(state, action: PayloadAction<string | undefined>) {
+      state.openUpdatingTask = !state.openUpdatingTask;
+      if (action.payload) {
+        state.taskId = action.payload;
+      } else {
+        state.taskId = "";
+      }
+    },
     toggleCreatingTask(state) {
       state.openCreatingTask = !state.openCreatingTask;
     },
@@ -30,8 +40,13 @@ const settingsSlice = createSlice({
   },
 });
 
-export const { toggleSettings, toggleCreatingTask, toggleTheme, openTheme } =
-  settingsSlice.actions;
+export const {
+  toggleSettings,
+  toggleCreatingTask,
+  toggleUpdatingTask,
+  toggleTheme,
+  openTheme,
+} = settingsSlice.actions;
 
 export const selectOpen = (state: RootState) =>
   Boolean(state.settings.isOpenSettings);
@@ -40,6 +55,11 @@ export const selectTheme = (state: RootState) =>
 
 export const selectCreatingTask = (state: RootState) =>
   Boolean(state.settings.openCreatingTask);
+
+export const selectUpdatingTask = (state: RootState) =>
+  Boolean(state.settings.openUpdatingTask);
+
+export const getTaskId = (state: RootState) => state.settings.taskId;
 
 export const getStageId = (state: RootState) => state.settings.stageId;
 

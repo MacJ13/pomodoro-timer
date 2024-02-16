@@ -1,14 +1,13 @@
 import styled from "styled-components";
-
 import TaskBar from "./TaskBar";
-import CreateTask from "./CreateTask";
 import TaskList from "./TaskList";
+import TaskForm from "./TaskForm";
 
 const Task = () => {
   return (
     <Wrapper>
+      <TaskForm />
       <TaskBar />
-      <CreateTask />
       <TaskList />
     </Wrapper>
   );

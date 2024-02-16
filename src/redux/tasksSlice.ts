@@ -6,6 +6,14 @@ type TasksState = {
   tasks: Task[];
 };
 
+type UpdatedTask = {
+  id: string;
+  title: string;
+  notes: string;
+  round: number;
+  completeRound?: number;
+};
+
 const initialState: TasksState = {
   tasks: [],
 };
@@ -31,17 +39,31 @@ const tasksSlice = createSlice({
         };
       },
     },
+    updateTask(state, action: PayloadAction<UpdatedTask>) {
+      const { id, title, notes, round, completeRound } = action.payload;
+      const task = state.tasks.find((task) => task.id === id);
+      if (!task) return;
+
+      task.title = title;
+      task.notes = notes;
+      task.roundsTotal = round;
+      if (completeRound) task.roundsComplete = completeRound;
+    },
     markCompleteTask(state, action: PayloadAction<string>) {
       const id = action.payload;
-      const task = state.tasks.find((task) => task.id === id) as Task;
+      const task = state.tasks.find((task) => task.id === id);
+      if (!task) return;
 
       task.done = !task.done;
     },
   },
 });
 
-export const { addTask, markCompleteTask } = tasksSlice.actions;
+export const { addTask, markCompleteTask, updateTask } = tasksSlice.actions;
 
 export const selectAllTasks = (state: RootState) => state.tasks.tasks;
+
+export const selectTaskById = (state: RootState, id: string) =>
+  state.tasks.tasks.find((task) => task.id === id);
 
 export default tasksSlice.reducer;

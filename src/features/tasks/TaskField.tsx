@@ -11,7 +11,7 @@ const TaskField = ({ title, children }: RowProps) => {
       $gap="0.75rem"
       $mg_bottom="1rem"
     >
-      <Label $width="4.5rem">{title}</Label>
+      <Label $width="6rem">{title}</Label>
       <Row>{children}</Row>
     </Flex>
   );
