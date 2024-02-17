@@ -64,6 +64,16 @@ const tasksSlice = createSlice({
     clearAllTasks(state) {
       if (state.tasks.length) state.tasks.length = 0;
     },
+
+    clearFinishedTasks(state) {
+      if (!state.tasks.length) return;
+
+      const unfinishedTasks = state.tasks.filter((task) => !task.done);
+
+      if (unfinishedTasks.length === state.tasks.length) return;
+
+      state.tasks = unfinishedTasks;
+    },
   },
 });
 
@@ -73,6 +83,7 @@ export const {
   updateTask,
   deleteTask,
   clearAllTasks,
+  clearFinishedTasks,
 } = tasksSlice.actions;
 
 export const selectAllTasks = (state: RootState) => state.tasks.tasks;
