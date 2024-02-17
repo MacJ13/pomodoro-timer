@@ -7,9 +7,17 @@ import styled from "styled-components";
 import { Button } from "src/components/styles/Button.styled";
 import { useDispatch } from "react-redux";
 import { toggleCreatingTask } from "src/redux/settingsSlice";
+import { useState } from "react";
+import TaskDropdown from "./TaskDropdown";
 
 const TaskBar = () => {
   const dispatch = useDispatch();
+
+  const [openDropdown, setOpenDropdown] = useState<boolean>(false);
+
+  const closeDropdownList = () => {
+    setOpenDropdown(false);
+  };
 
   const openModal = () => {
     dispatch(toggleCreatingTask());
@@ -24,12 +32,17 @@ const TaskBar = () => {
           </Icon>
         </TaskButton>
         <h2>Tasks</h2>
-        <TaskButton>
+        <TaskButton
+          onClick={() => {
+            setOpenDropdown(!openDropdown);
+          }}
+        >
           <Icon $size="1.75rem">
             <DotsSvg />
           </Icon>
         </TaskButton>
       </Flex>
+      {openDropdown && <TaskDropdown handleCloseList={closeDropdownList} />}
     </Bar>
   );
 };
@@ -44,6 +57,10 @@ const Bar = styled.div`
   width: 100%;
   margin-bottom: 1.5rem;
 
+  & > div {
+    position: relative;
+  }
+
   & h2 {
     letter-spacing: 1px;
   }
@@ -54,6 +71,7 @@ const TaskButton = styled(Button)`
   border-radius: 50%;
   box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.125);
   padding: 0.125rem;
+  position: relative;
 
   &:active {
     transform: translate(1px, 1px);
