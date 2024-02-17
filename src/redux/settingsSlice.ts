@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { StageId } from "../types/types";
@@ -70,10 +70,21 @@ export const getStageId = (state: RootState) => state.settings.stageId;
 
 export const getStageColor = (state: RootState) => state.settings.stageColor;
 
-export const getOpeningTasks = (state: RootState) => ({
-  openUpdating: state.settings.openUpdatingTask,
-  openCreating: state.settings.openCreatingTask,
-  openDeleting: state.settings.openDeletingTask,
-});
+const getOpenCreating = (state: RootState) => state.settings.openCreatingTask;
+const getOpenDeleting = (state: RootState) => state.settings.openDeletingTask;
+const getOpenUpdating = (state: RootState) => state.settings.openUpdatingTask;
+
+export const getOpeningTasks = createSelector(
+  [getOpenCreating, getOpenDeleting, getOpenUpdating],
+  (openCreating: boolean, openDeleting: boolean, openUpdating: boolean) => {
+    return { openCreating, openDeleting, openUpdating };
+  }
+);
+
+// export const getOpeningTasks = (state: RootState) => ({
+//   openUpdating: state.settings.openUpdatingTask,
+//   openCreating: state.settings.openCreatingTask,
+//   openDeleting: state.settings.openDeletingTask,
+// });
 
 export default settingsSlice.reducer;
