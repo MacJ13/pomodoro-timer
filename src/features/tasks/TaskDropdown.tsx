@@ -1,19 +1,32 @@
 import styled from "styled-components";
 import { List } from "src/components/styles/List.styled";
-import { useDispatch } from "react-redux";
-import { clearAllTasks, clearFinishedTasks } from "src/redux/tasksSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearAllTasks,
+  clearFinishedTasks,
+  getFilteredActive,
+  toggleFilteredTasks,
+} from "src/redux/tasksSlice";
 
 type TaskDropdownProps = {
   handleCloseList: () => void;
 };
 
 const TaskDropdown = ({ handleCloseList }: TaskDropdownProps) => {
+  const filteredActive = useSelector(getFilteredActive);
   const dispatch = useDispatch();
 
   return (
     <DropdownList>
       <Item>
-        <Button onClick={handleCloseList}>Hide undone tasks</Button>
+        <Button
+          onClick={() => {
+            dispatch(toggleFilteredTasks());
+            handleCloseList();
+          }}
+        >
+          {filteredActive ? "Show" : "Hide"} undone tasks
+        </Button>
       </Item>
       <Item>
         <Button

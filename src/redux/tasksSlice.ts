@@ -4,6 +4,7 @@ import { RootState } from "./store";
 
 type TasksState = {
   tasks: Task[];
+  isFilteredActive: boolean;
 };
 
 type UpdatedTask = {
@@ -16,6 +17,7 @@ type UpdatedTask = {
 
 const initialState: TasksState = {
   tasks: [],
+  isFilteredActive: false,
 };
 
 const tasksSlice = createSlice({
@@ -61,18 +63,27 @@ const tasksSlice = createSlice({
 
       task.done = !task.done;
     },
+    toggleFilteredTasks(state) {
+      if (!state.tasks.length) return;
+      state.isFilteredActive = !state.isFilteredActive;
+    },
+
     clearAllTasks(state) {
-      if (state.tasks.length) state.tasks.length = 0;
+      if (!state.tasks.length) return;
+      state.tasks.length = 0;
+      state.isFilteredActive = false;
     },
 
     clearFinishedTasks(state) {
       if (!state.tasks.length) return;
+      state.isFilteredActive = false;
 
       const unfinishedTasks = state.tasks.filter((task) => !task.done);
 
       if (unfinishedTasks.length === state.tasks.length) return;
 
       state.tasks = unfinishedTasks;
+      state.isFilteredActive = false;
     },
   },
 });
@@ -84,11 +95,15 @@ export const {
   deleteTask,
   clearAllTasks,
   clearFinishedTasks,
+  toggleFilteredTasks,
 } = tasksSlice.actions;
 
 export const selectAllTasks = (state: RootState) => state.tasks.tasks;
 
 export const selectTaskById = (state: RootState, id: string) =>
   state.tasks.tasks.find((task) => task.id === id);
+
+export const getFilteredActive = (state: RootState) =>
+  state.tasks.isFilteredActive;
 
 export default tasksSlice.reducer;
