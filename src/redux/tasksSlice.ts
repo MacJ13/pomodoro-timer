@@ -61,11 +61,19 @@ const tasksSlice = createSlice({
 
       task.done = !task.done;
     },
+    clearAllTasks(state) {
+      if (state.tasks.length) state.tasks.length = 0;
+    },
   },
 });
 
-export const { addTask, markCompleteTask, updateTask, deleteTask } =
-  tasksSlice.actions;
+export const {
+  addTask,
+  markCompleteTask,
+  updateTask,
+  deleteTask,
+  clearAllTasks,
+} = tasksSlice.actions;
 
 export const selectAllTasks = (state: RootState) => state.tasks.tasks;
 

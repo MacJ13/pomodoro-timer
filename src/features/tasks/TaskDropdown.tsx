@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { List } from "src/components/styles/List.styled";
+import { useDispatch } from "react-redux";
+import { clearAllTasks } from "src/redux/tasksSlice";
 
 type TaskDropdownProps = {
   handleCloseList: () => void;
 };
 
 const TaskDropdown = ({ handleCloseList }: TaskDropdownProps) => {
+  const dispatch = useDispatch();
+
   return (
     <DropdownList>
       <Item>
@@ -15,7 +19,14 @@ const TaskDropdown = ({ handleCloseList }: TaskDropdownProps) => {
         <Button onClick={handleCloseList}>Clear finished tasks</Button>
       </Item>
       <Item>
-        <Button onClick={handleCloseList}>Clear all tasks</Button>
+        <Button
+          onClick={() => {
+            dispatch(clearAllTasks());
+            handleCloseList();
+          }}
+        >
+          Clear all tasks
+        </Button>
       </Item>
     </DropdownList>
   );
