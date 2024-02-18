@@ -35,7 +35,7 @@ const SwitchStages = () => {
 };
 
 const StageFlex = styled(Flex)`
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   position: relative;
 `;
 

@@ -30,7 +30,7 @@ const TaskList = () => {
 };
 
 const List = styled.div`
-  min-height: 10rem;
+  min-height: 5.5rem;
   width: 100%;
 `;
 

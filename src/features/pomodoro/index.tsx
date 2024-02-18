@@ -14,8 +14,7 @@ const PomodoroTimer = () => {
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  padding: 3rem 1rem;
-  border-bottom: ${({ theme }) => theme.borders.slimTranslucent};
+  padding: 2.25rem 1rem;
 `;
 
 export default PomodoroTimer;

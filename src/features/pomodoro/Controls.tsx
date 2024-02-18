@@ -65,7 +65,7 @@ const Controls = ({ repeat }: ControlsProps) => {
 };
 
 const FlexControls = styled(Flex)`
-  margin-top: 2.8rem;
+  margin: 1.8rem 0 2.25rem 0;
   gap: 5rem;
 
   & > button:first-child,
