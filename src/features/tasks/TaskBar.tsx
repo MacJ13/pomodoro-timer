@@ -7,13 +7,24 @@ import styled from "styled-components";
 import { Button } from "src/components/styles/Button.styled";
 import { useDispatch } from "react-redux";
 import { toggleCreatingTask } from "src/redux/settingsSlice";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TaskDropdown from "./TaskDropdown";
 
 const TaskBar = () => {
   const dispatch = useDispatch();
 
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
+
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(e.target as Node)
+    ) {
+      closeDropdownList();
+    }
+  };
 
   const closeDropdownList = () => {
     setOpenDropdown(false);
@@ -22,6 +33,15 @@ const TaskBar = () => {
   const openModal = () => {
     dispatch(toggleCreatingTask());
   };
+
+  useEffect(() => {
+    if (openDropdown) document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      if (openDropdown)
+        document.removeEventListener("click", handleOutsideClick);
+    };
+  });
 
   return (
     <Bar>
@@ -33,8 +53,9 @@ const TaskBar = () => {
         </TaskButton>
         <h2>Tasks</h2>
         <TaskButton
-          onClick={() => {
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             setOpenDropdown(!openDropdown);
+            e.stopPropagation();
           }}
         >
           <Icon $size="1.75rem">
@@ -42,7 +63,9 @@ const TaskBar = () => {
           </Icon>
         </TaskButton>
       </Flex>
-      {openDropdown && <TaskDropdown handleCloseList={closeDropdownList} />}
+      {openDropdown && (
+        <TaskDropdown ref={dropdownRef} handleCloseList={closeDropdownList} />
+      )}
     </Bar>
   );
 };
@@ -56,10 +79,6 @@ const Bar = styled.div`
 
   width: 100%;
   margin-bottom: 1.5rem;
-
-  & > div {
-    position: relative;
-  }
 
   & h2 {
     letter-spacing: 1px;

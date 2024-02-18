@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { List } from "src/components/styles/List.styled";
 import { useDispatch, useSelector } from "react-redux";
+import { forwardRef } from "react";
 import {
   clearAllTasks,
   clearFinishedTasks,
@@ -12,49 +13,50 @@ type TaskDropdownProps = {
   handleCloseList: () => void;
 };
 
-const TaskDropdown = ({ handleCloseList }: TaskDropdownProps) => {
-  const filteredActive = useSelector(getFilteredActive);
-  const dispatch = useDispatch();
+const TaskDropdown = forwardRef<HTMLUListElement, TaskDropdownProps>(
+  ({ handleCloseList }, ref) => {
+    const filteredActive = useSelector(getFilteredActive);
+    const dispatch = useDispatch();
 
-  return (
-    <DropdownList>
-      <Item>
-        <Button
-          onClick={() => {
-            dispatch(toggleFilteredTasks());
-            handleCloseList();
-          }}
-        >
-          {filteredActive ? "Show" : "Hide"} undone tasks
-        </Button>
-      </Item>
-      <Item>
-        <Button
-          onClick={() => {
-            dispatch(clearFinishedTasks());
-            handleCloseList();
-          }}
-        >
-          Clear finished tasks
-        </Button>
-      </Item>
-      <Item>
-        <Button
-          onClick={() => {
-            dispatch(clearAllTasks());
-            handleCloseList();
-          }}
-        >
-          Clear all tasks
-        </Button>
-      </Item>
-    </DropdownList>
-  );
-};
+    return (
+      <DropdownList ref={ref}>
+        <Item>
+          <Button
+            onClick={() => {
+              dispatch(toggleFilteredTasks());
+              handleCloseList();
+            }}
+          >
+            {filteredActive ? "Show" : "Hide"} undone tasks
+          </Button>
+        </Item>
+        <Item>
+          <Button
+            onClick={() => {
+              dispatch(clearFinishedTasks());
+              handleCloseList();
+            }}
+          >
+            Clear finished tasks
+          </Button>
+        </Item>
+        <Item>
+          <Button
+            onClick={() => {
+              dispatch(clearAllTasks());
+              handleCloseList();
+            }}
+          >
+            Clear all tasks
+          </Button>
+        </Item>
+      </DropdownList>
+    );
+  }
+);
 
 const DropdownList = styled(List)`
   position: absolute;
-  //   width: 12.5rem;
   margin-top: 0.25rem;
   width: auto;
   right: 0;
