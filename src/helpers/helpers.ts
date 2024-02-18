@@ -21,3 +21,7 @@ export function getFilename(value: string): string {
   const name = value.replace(regex, ".").split(".").slice(-2).shift() as string;
   return name;
 }
+
+export function getRandomAudioParameter() {
+  return "?a=" + Math.random();
+}

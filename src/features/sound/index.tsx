@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getRandomAudioParameter } from "src/helpers/helpers";
 import { selectOpen } from "src/redux/settingsSlice";
 
 import { selectSound, stopSound } from "src/redux/soundSlice";
@@ -12,7 +13,11 @@ const SoundEffect = () => {
   const audioRef = useRef<HTMLAudioElement>(new Audio(src));
 
   const play = () => {
-    if (audioRef.current.src !== src) audioRef.current.src = src;
+    if (audioRef.current.src !== src) {
+      audioRef.current.src = src + getRandomAudioParameter();
+      console.log(audioRef.current.src);
+    }
+
     audioRef.current.play();
   };
 
