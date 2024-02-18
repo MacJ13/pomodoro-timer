@@ -21,7 +21,11 @@ export const ModalContent = styled.div`
   color: grey;
   width: 100%;
   max-width: 30rem;
-  padding: 1rem 1.5rem;
   margin: auto;
   overflow: hidden;
+`;
+
+export const ModalWrapper = styled.div`
+  padding: 1rem 1.5rem;
+  width: 100%;
 `;
