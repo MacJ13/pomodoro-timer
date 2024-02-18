@@ -8,7 +8,7 @@ const CurrentRound = () => {
 
   return (
     <Round>
-      <button>#{Math.floor(round)}</button>
+      <Button>#{Math.floor(round)}</Button>
     </Round>
   );
 };
@@ -24,13 +24,19 @@ const Round = styled(Flex)`
   font-family: "Chivo Mono", monospace;
   opacity: 0.75;
 
-  border-radius: 50%;
   z-index: 2;
+`;
 
-  & > button {
-    color: inherit;
-    font-size: 1rem;
-    font-weight: 600;
+const Button = styled.button`
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.white025};
   }
 `;
 
