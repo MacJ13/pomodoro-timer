@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Stage } from "../../types/types";
+import { useSelector } from "react-redux";
+import { getStatus } from "src/redux/pomodoroSlice";
 
 type CircularProgressProps = {
   stage: Stage;
@@ -8,16 +10,22 @@ type CircularProgressProps = {
 };
 
 const CircularProgress = ({ stage, size, current }: CircularProgressProps) => {
-  const strokeWidth = 5;
+  const status = useSelector(getStatus);
 
-  const circleRadius = size / 2 - strokeWidth;
-  const difference = (current / stage.duration) * 100;
+  const duration = status === "start" ? current : stage.duration;
+
+  const hiddenAnimation = current === stage.duration && document.hidden;
+
+  const strokeWidth = 8;
+
+  const circleRadius = size / 2 - strokeWidth + 2;
+  const difference = (duration / stage.duration) * 100;
   const offsetProgress = 100 - difference;
   const circumreference = 2 * Math.PI * circleRadius;
   const offset = circumreference * ((100 - offsetProgress) / 100);
 
   return (
-    <Wrapper>
+    <Wrapper $status={status} $hidden={hiddenAnimation}>
       <svg
         width={size}
         height={size}
@@ -33,8 +41,8 @@ const CircularProgress = ({ stage, size, current }: CircularProgressProps) => {
           fill="transparent"
           //   stroke="#e0e0e0"
           stroke="#ffffff"
-          opacity={0.5}
-          strokeWidth={strokeWidth - 3}
+          opacity={0.33}
+          strokeWidth={strokeWidth}
         ></circle>
         <circle
           r={circleRadius}
@@ -46,7 +54,7 @@ const CircularProgress = ({ stage, size, current }: CircularProgressProps) => {
           // opacity={0.5}
           // stroke={stage.color}
           strokeLinecap="round"
-          strokeWidth={strokeWidth - 1}
+          strokeWidth={strokeWidth}
           strokeDasharray={`${circumreference}px`}
           strokeDashoffset={`${offset}px`}
         ></circle>
@@ -55,11 +63,13 @@ const CircularProgress = ({ stage, size, current }: CircularProgressProps) => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $status: string; $hidden: boolean }>`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  ${(props) => (props.$hidden ? "" : "& circle { transition: all 1s linear; }")}
 `;
 
 export default CircularProgress;
