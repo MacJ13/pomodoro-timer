@@ -73,7 +73,11 @@ const pomodoroSlice = createSlice({
       state.stageId = action.payload;
       state.status = "pause";
 
-      if (action.payload === "pomodoro" && state.round > 1) {
+      if (action.payload === "pomodoro" && state.round === 0.5) {
+        state.round = 1;
+      } else if (action.payload !== "pomodoro" && state.round === 1) {
+        state.round = 0.5;
+      } else if (action.payload === "pomodoro" && state.round > 1) {
         state.round += 0.5;
       } else if (action.payload !== "pomodoro" && state.round > 1.5) {
         state.round -= 0.5;
@@ -85,6 +89,11 @@ const pomodoroSlice = createSlice({
     },
     changeInterval(state, action: PayloadAction<number>) {
       state.longBreakInterval = action.payload;
+    },
+    clearRounds(state, action: PayloadAction<StageId>) {
+      console.log(action.payload);
+      if (action.payload === "pomodoro") state.round = 1;
+      else state.round = 0.5;
     },
     toggleAutoStart(
       state: PomodoroState,
@@ -120,6 +129,7 @@ export const {
   changeNextStage,
   toggleAutoStart,
   changeInterval,
+  clearRounds,
 } = pomodoroSlice.actions;
 
 export const selectPomodoroId = (state: RootState) => state.pomodoro.stageId;

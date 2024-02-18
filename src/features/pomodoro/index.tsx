@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import SwitchStages from "../stages/SwitchStages";
 import ControlTimer from "./ControlTimer";
+import CurrentRound from "./CurrentRound";
 
 const PomodoroTimer = () => {
   return (
     <Wrapper>
       <SwitchStages />
       <ControlTimer />
+      <CurrentRound />
     </Wrapper>
   );
 };
