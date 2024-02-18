@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Flex } from "./Flex.styled";
+import { Button } from "./Button.styled";
 
 export const StyledModal = styled(Flex)`
   position: fixed;
@@ -28,4 +29,12 @@ export const ModalContent = styled.div`
 export const ModalWrapper = styled.div`
   padding: 1rem 1.5rem;
   width: 100%;
+`;
+
+export const StyledButton = styled(Button)`
+  padding: 0.75rem 1.25rem;
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: 500;
+
+  background-color: ${({ theme }) => theme.colors.black05};
 `;
