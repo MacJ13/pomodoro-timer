@@ -46,11 +46,7 @@ const StageButton = styled(Button)<{ $active: boolean }>`
   background-color: ${({ theme, $active }) =>
     $active ? theme.colors.white0375 : theme.colors.white025};
   font-weight: ${(props) => (props.$active ? 600 : 500)};
+  box-shadow: 0px 2px 1px 0px rgba(255, 255, 255, 0.15);
 `;
-
-// border: ${(props) =>
-//   props.$active
-//     ? props.theme.borders.slimFull
-//     : props.theme.borders.slimTranslucent};
 
 export default SwitchStages;
