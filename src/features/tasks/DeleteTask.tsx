@@ -1,9 +1,9 @@
 import Modal from "src/components/modal/Modal";
 import { Flex } from "src/components/styles/Flex.styled";
-import ControlButton from "./ControlButton";
 import { useDispatch, useSelector } from "react-redux";
 import { getTaskId, toggleDeletingTask } from "src/redux/settingsSlice";
 import { deleteTask } from "src/redux/tasksSlice";
+import ModalButton from "src/components/modal/ModalButton";
 
 const DeleteTask = () => {
   const taskId = useSelector(getTaskId);
@@ -26,8 +26,8 @@ const DeleteTask = () => {
       </Flex>
 
       <Flex $gap="2.25rem">
-        <ControlButton handleClick={handleDeleteButton}>Delete</ControlButton>
-        <ControlButton handleClick={closeModal}>Cancel</ControlButton>
+        <ModalButton handleClick={handleDeleteButton}>Delete</ModalButton>
+        <ModalButton handleClick={closeModal}>Cancel</ModalButton>
       </Flex>
     </Modal>
   );

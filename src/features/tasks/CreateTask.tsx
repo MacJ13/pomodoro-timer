@@ -3,11 +3,11 @@ import { Flex } from "src/components/styles/Flex.styled";
 
 import TaskField from "./TaskField";
 import { Input, TextArea } from "src/components/styles/Field.styled";
-import ControlButton from "./ControlButton";
 import { useDispatch } from "react-redux";
 import { toggleCreatingTask } from "src/redux/settingsSlice";
 import React, { useState } from "react";
 import { addTask } from "src/redux/tasksSlice";
+import ModalButton from "src/components/modal/ModalButton";
 
 const CreateTask = () => {
   const dispatch = useDispatch();
@@ -79,8 +79,8 @@ const CreateTask = () => {
       </TaskField>
 
       <Flex $gap="2.25rem">
-        <ControlButton handleClick={createNewTask}>Create</ControlButton>
-        <ControlButton handleClick={closeModal}>Cancel</ControlButton>
+        <ModalButton handleClick={createNewTask}>Create</ModalButton>
+        <ModalButton handleClick={closeModal}>Cancel</ModalButton>
       </Flex>
     </Modal>
   );

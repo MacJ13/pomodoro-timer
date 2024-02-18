@@ -3,12 +3,12 @@ import Modal from "src/components/modal/Modal";
 import { Flex } from "src/components/styles/Flex.styled";
 import { getTaskId, toggleUpdatingTask } from "src/redux/settingsSlice";
 import TaskField from "./TaskField";
-import ControlButton from "./ControlButton";
 import { Input, TextArea } from "src/components/styles/Field.styled";
 import { useState } from "react";
 import { selectTaskById, updateTask } from "src/redux/tasksSlice";
 
 import { RootState } from "src/redux/store";
+import ModalButton from "src/components/modal/ModalButton";
 
 const UpdateTask = () => {
   const taskId = useSelector(getTaskId);
@@ -105,8 +105,8 @@ const UpdateTask = () => {
         />
       </TaskField>
       <Flex $gap="2.25rem">
-        <ControlButton handleClick={handleUpdateButton}>Update</ControlButton>
-        <ControlButton handleClick={handleCloseModal}>Cancel</ControlButton>
+        <ModalButton handleClick={handleUpdateButton}>Update</ModalButton>
+        <ModalButton handleClick={handleCloseModal}>Cancel</ModalButton>
       </Flex>
     </Modal>
   );
