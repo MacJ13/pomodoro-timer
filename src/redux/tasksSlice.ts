@@ -88,6 +88,7 @@ const tasksSlice = createSlice({
       if (!state.tasks.length) return;
       state.tasks.length = 0;
       state.isFilteredActive = false;
+      state.activeTaskId = "";
     },
 
     clearFinishedTasks(state) {
@@ -96,10 +97,31 @@ const tasksSlice = createSlice({
 
       const unfinishedTasks = state.tasks.filter((task) => !task.done);
 
-      if (unfinishedTasks.length === state.tasks.length) return;
+      const activeInTasks = unfinishedTasks.some((task) => task.active);
+
+      if (!unfinishedTasks.length) state.activeTaskId = "";
+
+      if (!activeInTasks && unfinishedTasks.length) {
+        unfinishedTasks[0].active = true;
+        state.activeTaskId = unfinishedTasks[0].id;
+      }
+
+      // if (unfinishedTasks.length === state.tasks.length) return;
 
       state.tasks = unfinishedTasks;
-      state.isFilteredActive = false;
+
+      // state.isFilteredActive = false;
+    },
+    changeActiveTask(state, action: PayloadAction<string>) {
+      if (state.activeTaskId === action.payload) return;
+
+      state.tasks = state.tasks.map((task) => {
+        task.active = action.payload === task.id ? true : false;
+
+        return task;
+      });
+
+      state.activeTaskId = action.payload;
     },
   },
 });
@@ -112,6 +134,7 @@ export const {
   clearAllTasks,
   clearFinishedTasks,
   toggleFilteredTasks,
+  changeActiveTask,
 } = tasksSlice.actions;
 
 export const selectAllTasks = (state: RootState) => state.tasks.tasks;
@@ -122,8 +145,10 @@ export const selectTaskById = (state: RootState, id: string) =>
 export const getFilteredActive = (state: RootState) =>
   state.tasks.isFilteredActive;
 
-export const getActiveTaskId = (state: RootState) => {
-  state.tasks.activeTaskId;
+export const getActiveTaskId = (state: RootState) => state.tasks.activeTaskId;
+
+export const getActiveTask = (state: RootState) => {
+  return state.tasks.tasks.find((task) => state.tasks.activeTaskId === task.id);
 };
 
 export default tasksSlice.reducer;
