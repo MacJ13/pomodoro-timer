@@ -11,7 +11,7 @@ import TaskSquareSvg from "../../assets/icons/square.svg?react";
 import { Button } from "src/components/styles/Button.styled";
 import { Task } from "src/types/types";
 import { useDispatch } from "react-redux";
-import { markCompleteTask } from "src/redux/tasksSlice";
+import { changeActiveTask, markCompleteTask } from "src/redux/tasksSlice";
 import {
   toggleDeletingTask,
   toggleUpdatingTask,
@@ -25,9 +25,13 @@ const SingleTask = ({ task }: SingleTaskProps) => {
   const dispatch = useDispatch();
   const notesInTask = Boolean(task.notes);
 
+  const stopPropagation = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+  };
+
   return (
     <StyledTask
-      onClick={() => console.log("click on task")}
+      onClick={() => dispatch(changeActiveTask(task.id))}
       $active={task.active}
       $complete={task.done}
     >
@@ -38,8 +42,9 @@ const SingleTask = ({ task }: SingleTaskProps) => {
       >
         <Flex $gap="0.5rem">
           <Button
-            onClick={() => {
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               dispatch(markCompleteTask(task.id));
+              stopPropagation(e);
             }}
           >
             <Icon $size="1.5rem">
@@ -54,8 +59,9 @@ const SingleTask = ({ task }: SingleTaskProps) => {
           </span>
           <Flex $gap="0.5rem">
             <Button
-              onClick={() => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 dispatch(toggleUpdatingTask(task.id));
+                stopPropagation(e);
               }}
             >
               <Icon $size="1.33rem">
@@ -63,8 +69,9 @@ const SingleTask = ({ task }: SingleTaskProps) => {
               </Icon>
             </Button>
             <Button
-              onClick={() => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 dispatch(toggleDeletingTask(task.id));
+                stopPropagation(e);
               }}
             >
               <Icon $size="1.33rem">

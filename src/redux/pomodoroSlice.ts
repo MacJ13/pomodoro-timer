@@ -20,6 +20,7 @@ const initialState: PomodoroState = {
   stageId: "pomodoro",
   longBreakInterval: 4,
   status: "idle",
+  activeTaskId: "",
   round: 1,
   autoStartBreaks: false,
   autoStartPomodoros: false,
