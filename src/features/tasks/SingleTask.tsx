@@ -23,11 +23,14 @@ type SingleTaskProps = {
 
 const SingleTask = ({ task }: SingleTaskProps) => {
   const dispatch = useDispatch();
-
   const notesInTask = Boolean(task.notes);
 
   return (
-    <StyledTask $complete={task.done}>
+    <StyledTask
+      onClick={() => console.log("click on task")}
+      $active={task.active}
+      $complete={task.done}
+    >
       <Flex
         $justify="space-between"
         $gap="0.5rem"
@@ -79,12 +82,14 @@ const SingleTask = ({ task }: SingleTaskProps) => {
   );
 };
 
-const StyledTask = styled.div<{ $complete: boolean }>`
+const StyledTask = styled.div<{ $active?: boolean; $complete: boolean }>`
   position: relative;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.white025};
   border-radius: 0.33rem;
   box-shadow: 0px 2px 1px 0px rgba(255, 255, 255, 0.15);
+
+  cursor: pointer;
 
   padding: 1rem 0.75rem;
   opacity: ${({ $complete }) => ($complete ? 0.8 : 1)};
@@ -100,14 +105,19 @@ const StyledTask = styled.div<{ $complete: boolean }>`
 
   &::before {
     position: absolute;
-
     top: 0;
     left: 0;
     display: block;
     content: "";
-    background-color: white;
+    background-color: ${({ $active, theme }) =>
+      $active ? theme.colors.white : "transparent"};
     height: 0.25rem;
     width: 100%;
+  }
+
+  &:hover::before {
+    background-color: ${({ $active, theme }) =>
+      $active ? "" : theme.colors.white05};
   }
 `;
 

@@ -5,6 +5,7 @@ import { RootState } from "./store";
 type TasksState = {
   tasks: Task[];
   isFilteredActive: boolean;
+  activeTaskId: string;
 };
 
 type UpdatedTask = {
@@ -17,6 +18,7 @@ type UpdatedTask = {
 
 const initialState: TasksState = {
   tasks: [],
+  activeTaskId: "",
   isFilteredActive: false,
 };
 
@@ -26,9 +28,13 @@ const tasksSlice = createSlice({
   reducers: {
     addTask: {
       reducer(state, action: PayloadAction<Task>) {
+        if (!state.activeTaskId && state.tasks.length === 0) {
+          action.payload.active = true;
+          state.activeTaskId = action.payload.id;
+        }
         state.tasks.push(action.payload);
       },
-      prepare(title, roundsTotal, notes) {
+      prepare(title: string, roundsTotal: number, notes: string) {
         return {
           payload: {
             id: nanoid(),
@@ -37,6 +43,7 @@ const tasksSlice = createSlice({
             roundsTotal,
             roundsComplete: 0,
             done: false,
+            active: false,
           },
         };
       },
@@ -55,6 +62,15 @@ const tasksSlice = createSlice({
       const id = action.payload;
 
       state.tasks = state.tasks.filter((task) => task.id !== id);
+
+      if (id === state.activeTaskId && state.tasks.length) {
+        state.tasks[0].active = true;
+        state.activeTaskId = state.tasks[0].id;
+      }
+
+      if (!state.tasks.length) {
+        state.activeTaskId = "";
+      }
     },
     markCompleteTask(state, action: PayloadAction<string>) {
       const id = action.payload;
@@ -105,5 +121,9 @@ export const selectTaskById = (state: RootState, id: string) =>
 
 export const getFilteredActive = (state: RootState) =>
   state.tasks.isFilteredActive;
+
+export const getActiveTaskId = (state: RootState) => {
+  state.tasks.activeTaskId;
+};
 
 export default tasksSlice.reducer;

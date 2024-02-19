@@ -16,6 +16,7 @@ export type Task = {
   roundsTotal: number;
   roundsComplete: number;
   done: boolean;
+  active: boolean;
 };
 
 export type ChildrenProps = {
