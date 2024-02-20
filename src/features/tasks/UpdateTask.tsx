@@ -20,8 +20,10 @@ const UpdateTask = () => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState<string>(updatingTask.title);
-  const [round, setRound] = useState<number>(updatingTask.roundsTotal);
-  const [completeRound, setCompleteRound] = useState<number>(
+  const [roundsTotal, setRoundsTotal] = useState<number>(
+    updatingTask.roundsTotal
+  );
+  const [roundsComplete, setRoundsComplete] = useState<number>(
     updatingTask.roundsComplete
   );
   const [notes, setNotes] = useState<string>(updatingTask.notes || "");
@@ -35,8 +37,8 @@ const UpdateTask = () => {
       id: updatingTask.id,
       title,
       notes,
-      round,
-      completeRound,
+      roundsTotal,
+      roundsComplete,
     };
 
     if (!title) return;
@@ -49,13 +51,13 @@ const UpdateTask = () => {
   };
 
   const handleChangeRound = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRound(Number(e.target.value));
+    setRoundsTotal(Number(e.target.value));
   };
 
   const handleChangeCompleteRound = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setCompleteRound(Number(e.target.value));
+    setRoundsComplete(Number(e.target.value));
   };
 
   const handleChangeNotes = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -79,7 +81,7 @@ const UpdateTask = () => {
       <TaskField title="Rounds">
         <Input
           type="number"
-          value={round}
+          value={roundsTotal}
           min="1"
           onChange={handleChangeRound}
         />
@@ -89,7 +91,7 @@ const UpdateTask = () => {
           <TaskField title="Complete Rounds">
             <Input
               type="number"
-              value={completeRound}
+              value={roundsComplete}
               min="1"
               onChange={handleChangeCompleteRound}
             />

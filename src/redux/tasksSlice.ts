@@ -1,26 +1,41 @@
-import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  nanoid,
+  PayloadAction,
+  createEntityAdapter,
+} from "@reduxjs/toolkit";
 import { Task } from "src/types/types";
 import { RootState } from "./store";
 
-type TasksState = {
-  tasks: Task[];
-  isFilteredActive: boolean;
-  activeTaskId: string;
-};
+// type TasksState = {
+//   tasks: Task[];
+//   isFilteredActive: boolean;
+//   activeTaskId: string;
+// };
 
 type UpdatedTask = {
   id: string;
   title: string;
   notes: string;
-  round: number;
-  completeRound?: number;
+  roundsTotal: number;
+  roundsComplete: number;
 };
 
-const initialState: TasksState = {
-  tasks: [],
+// const initialState: TasksState = {
+//   tasks: [],
+//   activeTaskId: "",
+//   isFilteredActive: false,
+// };
+
+const tasksAdapter = createEntityAdapter({
+  selectId: (task: Task) => task.id,
+  sortComparer: (a, b) => a.createdAt.localeCompare(b.createdAt),
+});
+
+const initialState = tasksAdapter.getInitialState({
   activeTaskId: "",
   isFilteredActive: false,
-};
+});
 
 const tasksSlice = createSlice({
   name: "tasks",
@@ -28,11 +43,17 @@ const tasksSlice = createSlice({
   reducers: {
     addTask: {
       reducer(state, action: PayloadAction<Task>) {
-        if (!state.activeTaskId && state.tasks.length === 0) {
+        if (!state.activeTaskId && state.ids.length === 0) {
           action.payload.active = true;
           state.activeTaskId = action.payload.id;
         }
-        state.tasks.push(action.payload);
+        // if (!state.activeTaskId && state.tasks.length === 0) {
+        //   action.payload.active = true;
+        //   state.activeTaskId = action.payload.id;
+        // }
+
+        tasksAdapter.addOne(state, action.payload);
+        // state.tasks.push(action.payload);
       },
       prepare(title: string, roundsTotal: number, notes: string) {
         return {
@@ -44,84 +65,160 @@ const tasksSlice = createSlice({
             roundsComplete: 0,
             done: false,
             active: false,
+            createdAt: new Date().toISOString(),
           },
         };
       },
     },
     updateTask(state, action: PayloadAction<UpdatedTask>) {
-      const { id, title, notes, round, completeRound } = action.payload;
-      const task = state.tasks.find((task) => task.id === id);
-      if (!task) return;
+      const { id } = action.payload;
 
-      task.title = title;
-      task.notes = notes;
-      task.roundsTotal = round;
-      if (completeRound) task.roundsComplete = completeRound;
+      const existingTask = state.entities[id];
+
+      if (!existingTask) return;
+
+      const updatedTask = {
+        ...existingTask,
+        ...action.payload,
+      };
+
+      // console.log(updatedTask)
+
+      // existingTask.title = title;
+      // existingTask.notes = notes;
+      // existingTask.roundsTotal = roundsTotal;
+      // if (roundsComplete) existingTask.roundsComplete = roundsComplete;
+
+      tasksAdapter.upsertOne(state, updatedTask);
     },
     deleteTask(state, action: PayloadAction<string>) {
       const id = action.payload;
 
-      state.tasks = state.tasks.filter((task) => task.id !== id);
+      // state.tasks = state.tasks.filter((task) => task.id !== id);
 
-      if (id === state.activeTaskId && state.tasks.length) {
-        state.tasks[0].active = true;
-        state.activeTaskId = state.tasks[0].id;
-      }
+      // if (id === state.activeTaskId && state.tasks.length) {
+      //   state.tasks[0].active = true;
+      //   state.activeTaskId = state.tasks[0].id;
+      // }
 
-      if (!state.tasks.length) {
+      // if (!state.tasks.length) {
+      //   state.activeTaskId = "";
+      // }
+
+      tasksAdapter.removeOne(state, id);
+
+      if (!state.ids.length) {
         state.activeTaskId = "";
+      } else if (id === state.activeTaskId && state.ids.length) {
+        const nextAvailableId = state.ids[0];
+        const nextTask = state.entities[nextAvailableId];
+
+        tasksAdapter.upsertOne(state, { ...nextTask, active: true });
       }
     },
     markCompleteTask(state, action: PayloadAction<string>) {
       const id = action.payload;
-      const task = state.tasks.find((task) => task.id === id);
+
+      // const task = state.tasks.find((task) => task.id === id);
+      // if (!task) return;
+
+      // task.done = !task.done;
+
+      const task = state.entities[id];
       if (!task) return;
 
-      task.done = !task.done;
+      tasksAdapter.upsertOne(state, { ...task, done: !task.done });
     },
     toggleFilteredTasks(state) {
-      if (!state.tasks.length) return;
+      if (!state.ids.length) return;
       state.isFilteredActive = !state.isFilteredActive;
     },
 
     clearAllTasks(state) {
-      if (!state.tasks.length) return;
-      state.tasks.length = 0;
-      state.isFilteredActive = false;
+      if (!state.ids.length) return;
+
       state.activeTaskId = "";
+
+      tasksAdapter.removeAll(state);
+      // tasksAdapter.removeMany(state, state.ids);
+
+      // if (!state.tasks.length) return;
+      // state.tasks.length = 0;
+      // state.isFilteredActive = false;
+      // state.activeTaskId = "";
     },
 
     clearFinishedTasks(state) {
-      if (!state.tasks.length) return;
+      if (!state.ids.length) return;
+
       state.isFilteredActive = false;
 
-      const unfinishedTasks = state.tasks.filter((task) => !task.done);
+      const doneIds = state.ids.filter((id) => {
+        const task = state.entities[id];
 
-      const activeInTasks = unfinishedTasks.some((task) => task.active);
+        return task.done;
+      });
 
-      if (!unfinishedTasks.length) state.activeTaskId = "";
+      const activeTaskDone = doneIds.includes(state.activeTaskId);
 
-      if (!activeInTasks && unfinishedTasks.length) {
-        unfinishedTasks[0].active = true;
-        state.activeTaskId = unfinishedTasks[0].id;
+      tasksAdapter.removeMany(state, doneIds);
+
+      if (!state.ids.length) {
+        state.activeTaskId = "";
+      } else if (activeTaskDone) {
+        const nextId = state.ids[0];
+        const nextTask = state.entities[nextId];
+        state.activeTaskId = nextTask.id;
+
+        tasksAdapter.upsertOne(state, { ...nextTask, active: true });
       }
 
-      // if (unfinishedTasks.length === state.tasks.length) return;
+      // if (!state.tasks.length) return;
 
-      state.tasks = unfinishedTasks;
+      // state.isFilteredActive = false;
+
+      // const unfinishedTasks = state.tasks.filter((task) => !task.done);
+
+      // const activeInTasks = unfinishedTasks.some((task) => task.active);
+
+      // if (!unfinishedTasks.length) state.activeTaskId = "";
+
+      // if (!activeInTasks && unfinishedTasks.length) {
+      //   unfinishedTasks[0].active = true;
+      //   state.activeTaskId = unfinishedTasks[0].id;
+      // }
+
+      // // if (unfinishedTasks.length === state.tasks.length) return;
+
+      // state.tasks = unfinishedTasks;
 
       // state.isFilteredActive = false;
     },
     changeActiveTask(state, action: PayloadAction<string>) {
-      if (state.activeTaskId === action.payload) return;
+      const activeId = state.activeTaskId;
+      const markedId = action.payload;
 
-      state.tasks = state.tasks.map((task) => {
-        task.active = action.payload === task.id ? true : false;
+      if (activeId === markedId) return;
 
-        return task;
-      });
+      const activeTask = { ...state.entities[activeId], active: false };
+      const markedTask = { ...state.entities[markedId], active: true };
 
-      state.activeTaskId = action.payload;
+      // activeTask.active = false;
+      // markedTask.active = true;
+
+      state.activeTaskId = markedId;
+
+      tasksAdapter.upsertMany(state, [activeTask, markedTask]);
+
+      // const currentActiveTask = state.entities[]
+
+      // state.tasks = state.tasks.map((task) => {
+      //   task.active = action.payload === task.id ? true : false;
+
+      //   return task;
+      // });
+
+      // state.activeTaskId = action.payload;
     },
   },
 });
@@ -137,18 +234,29 @@ export const {
   changeActiveTask,
 } = tasksSlice.actions;
 
-export const selectAllTasks = (state: RootState) => state.tasks.tasks;
+// export const selectAllTasks = (state: RootState) => state.tasks.tasks;
 
-export const selectTaskById = (state: RootState, id: string) =>
-  state.tasks.tasks.find((task) => task.id === id);
+// export const selectTaskById = (state: RootState, id: string) =>
+//   state.tasks.tasks.find((task) => task.id === id);
+
+// export const getFilteredActive = (state: RootState) =>
+//   state.tasks.isFilteredActive;
+
+// export const getActiveTaskId = (state: RootState) => state.tasks.activeTaskId;
+
+// export const getActiveTask = (state: RootState) => {
+//   return state.tasks.tasks.find((task) => state.tasks.activeTaskId === task.id);
+// };
+
+// export const selectAllTasks = (state: RootState) => state.tasks.allIds.
+
+export const {
+  selectAll: selectAllTasks,
+  selectById: selectTaskById,
+  selectIds: selectTaskIds,
+} = tasksAdapter.getSelectors((state: RootState) => state.tasks);
 
 export const getFilteredActive = (state: RootState) =>
   state.tasks.isFilteredActive;
-
-export const getActiveTaskId = (state: RootState) => state.tasks.activeTaskId;
-
-export const getActiveTask = (state: RootState) => {
-  return state.tasks.tasks.find((task) => state.tasks.activeTaskId === task.id);
-};
 
 export default tasksSlice.reducer;

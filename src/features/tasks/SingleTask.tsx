@@ -9,25 +9,40 @@ import TaskDoneSvg from "../../assets/icons/task-done.svg?react";
 import TaskSquareSvg from "../../assets/icons/square.svg?react";
 
 import { Button } from "src/components/styles/Button.styled";
-import { Task } from "src/types/types";
-import { useDispatch } from "react-redux";
-import { changeActiveTask, markCompleteTask } from "src/redux/tasksSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeActiveTask,
+  getFilteredActive,
+  markCompleteTask,
+  selectTaskById,
+} from "src/redux/tasksSlice";
 import {
   toggleDeletingTask,
   toggleUpdatingTask,
 } from "src/redux/settingsSlice";
+import { RootState } from "src/redux/store";
 
 type SingleTaskProps = {
-  task: Task;
+  taskId: string;
 };
 
-const SingleTask = ({ task }: SingleTaskProps) => {
+const SingleTask = ({ taskId }: SingleTaskProps) => {
+  const task = useSelector((state: RootState) => {
+    return selectTaskById(state, taskId);
+  });
+
+  const filteredActive = useSelector(getFilteredActive);
+
   const dispatch = useDispatch();
   const notesInTask = Boolean(task.notes);
 
   const stopPropagation = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
   };
+
+  if (filteredActive && task.done) {
+    return null;
+  }
 
   return (
     <StyledTask
