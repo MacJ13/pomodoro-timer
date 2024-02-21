@@ -7,19 +7,27 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-const ControlButton = ({ disabled, handleButton, children }: ButtonProps) => {
+const ControlButton = ({
+  disabled = false,
+  handleButton,
+  children,
+}: ButtonProps) => {
   return (
-    <Button disabled={disabled || false} onClick={handleButton}>
+    <Button
+      disabled={disabled}
+      $hidden={document.hidden}
+      onClick={handleButton}
+    >
       <Icon>{children}</Icon>
     </Button>
   );
 };
 
-const Button = styled.button`
+const Button = styled.button<{ $hidden: boolean }>`
   position: relative;
   opacity: 0.75;
 
-  transition: opacity 0.33s;
+  ${({ $hidden }) => (!$hidden ? "transition: opacity 0.33s;" : "")}
 
   &:hover {
     opacity: 1;
