@@ -62,12 +62,14 @@ const RoundButton = styled.button`
   color: inherit;
   font-size: 1rem;
   font-weight: 600;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2.125rem;
+  height: 2.125rem;
   border-radius: 50%;
+  box-shadow: 0px 3px 1px 0px rgba(255, 255, 255, 0.15);
+  background-color: ${({ theme }) => theme.colors.white025};
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.white025};
+    background-color: ${({ theme }) => theme.colors.white0375};
   }
 `;
 
