@@ -13,7 +13,7 @@ import {
 
 import { playSound } from "../../redux/soundSlice";
 
-import { selectStageById } from "../../redux/stagesSlice";
+import { selectStageById, updatePreviousTheme } from "../../redux/stagesSlice";
 import { AppDispatch, RootState } from "../../redux/store";
 import CircularProgress from "./CircularProgress";
 import Countdown from "./Countdown";
@@ -75,6 +75,7 @@ const ControlTimer = () => {
       if (isPomodoro) {
         dispatch(incrementActiveTask());
       }
+      dispatch(updatePreviousTheme(stageId));
       dispatch(changeNextStage());
       dispatch(playSound());
     } else if (isRunning) {
