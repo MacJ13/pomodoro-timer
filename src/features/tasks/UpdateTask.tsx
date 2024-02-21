@@ -78,7 +78,7 @@ const UpdateTask = () => {
           onChange={handleChangeTitle}
         />
       </TaskField>
-      <TaskField title="Rounds">
+      <TaskField title="Total Rounds">
         <Input
           type="number"
           value={roundsTotal}
@@ -92,7 +92,8 @@ const UpdateTask = () => {
             <Input
               type="number"
               value={roundsComplete}
-              min="1"
+              min="0"
+              max={updatingTask.roundsComplete}
               onChange={handleChangeCompleteRound}
             />
           </TaskField>

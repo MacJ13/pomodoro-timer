@@ -15,7 +15,6 @@ const SoundEffect = () => {
   const play = () => {
     if (audioRef.current.src !== src) {
       audioRef.current.src = src + getRandomAudioParameter();
-      console.log(audioRef.current.src);
     }
 
     audioRef.current.play();

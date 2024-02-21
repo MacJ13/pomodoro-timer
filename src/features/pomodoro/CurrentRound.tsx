@@ -36,8 +36,8 @@ const CurrentRound = () => {
       </Round>
       {open && (
         <Modal handleClick={togglePrompt}>
-          <Flex $mg_bottom="1.5rem" $gap="0.5rem">
-            <p>
+          <Flex $gap="0.5rem">
+            <p style={{ padding: "1rem 0" }}>
               Are you sure you want to <strong>clear rounds</strong>?
             </p>
             <ModalButton handleClick={handleClearRounds}>Yes</ModalButton>

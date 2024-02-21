@@ -14,20 +14,24 @@ import {
   changeNextStage,
   changeStatus,
   getStatus,
+  isPomodoroStageId,
 } from "../../redux/pomodoroSlice";
 
-import { stopSound } from "../../redux/soundSlice";
+import { getVolume, stopSound } from "../../redux/soundSlice";
 import { useRef } from "react";
 import { Flex } from "src/components/styles/Flex.styled";
+import { incrementActiveTask } from "src/redux/tasksSlice";
 
 type ControlsProps = {
   repeat: () => void;
 };
 
 const Controls = ({ repeat }: ControlsProps) => {
-  const dispatch = useDispatch();
-
   const status = useSelector(getStatus);
+  const isPomodoro = useSelector(isPomodoroStageId);
+  const volume = useSelector(getVolume);
+
+  const dispatch = useDispatch();
 
   const isStart = status === "start";
 
@@ -35,6 +39,7 @@ const Controls = ({ repeat }: ControlsProps) => {
 
   const clickSound = () => {
     audioRef.current.currentTime = 0;
+    audioRef.current.volume = volume;
     audioRef.current.play();
   };
 
@@ -47,6 +52,9 @@ const Controls = ({ repeat }: ControlsProps) => {
   const updateStage = () => {
     dispatch(changeNextStage());
     dispatch(stopSound());
+    if (isPomodoro) {
+      dispatch(incrementActiveTask());
+    }
   };
 
   return (

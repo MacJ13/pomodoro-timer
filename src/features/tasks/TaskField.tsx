@@ -9,9 +9,9 @@ const TaskField = ({ title, children }: RowProps) => {
       $justify="flex-start"
       $align="flex-start"
       $gap="0.75rem"
-      $mg_bottom="1rem"
+      $mg_bottom="1.25rem"
     >
-      <Label $width="6rem">{title}</Label>
+      <Label $width="5.5rem">{title}</Label>
       <Row>{children}</Row>
     </Flex>
   );

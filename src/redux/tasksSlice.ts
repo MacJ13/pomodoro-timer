@@ -112,7 +112,7 @@ const tasksSlice = createSlice({
       } else if (id === state.activeTaskId && state.ids.length) {
         const nextAvailableId = state.ids[0];
         const nextTask = state.entities[nextAvailableId];
-
+        state.activeTaskId = nextAvailableId;
         tasksAdapter.upsertOne(state, { ...nextTask, active: true });
       }
     },
@@ -195,20 +195,24 @@ const tasksSlice = createSlice({
       // state.isFilteredActive = false;
     },
     changeActiveTask(state, action: PayloadAction<string>) {
-      const activeId = state.activeTaskId;
-      const markedId = action.payload;
+      const previousActiveId = state.activeTaskId;
 
-      if (activeId === markedId) return;
+      if (previousActiveId === action.payload || state.ids.length === 1) return;
 
-      const activeTask = { ...state.entities[activeId], active: false };
-      const markedTask = { ...state.entities[markedId], active: true };
+      state.activeTaskId = action.payload;
+      // const activeId = state.activeTaskId;
+      // const markedId = action.payload;
 
-      // activeTask.active = false;
-      // markedTask.active = true;
+      const previousTask = {
+        ...state.entities[previousActiveId],
+        active: false,
+      };
+      const currentTask = {
+        ...state.entities[state.activeTaskId],
+        active: true,
+      };
 
-      state.activeTaskId = markedId;
-
-      tasksAdapter.upsertMany(state, [activeTask, markedTask]);
+      tasksAdapter.upsertMany(state, [previousTask, currentTask]);
 
       // const currentActiveTask = state.entities[]
 
@@ -219,6 +223,18 @@ const tasksSlice = createSlice({
       // });
 
       // state.activeTaskId = action.payload;
+    },
+    incrementActiveTask(state) {
+      if (!state.activeTaskId) return;
+      const activeTask = state.entities[state.activeTaskId];
+
+      if (!activeTask) return;
+
+      const rounds = activeTask.roundsComplete + 1;
+      tasksAdapter.upsertOne(state, {
+        ...activeTask,
+        roundsComplete: rounds,
+      });
     },
   },
 });
@@ -232,6 +248,7 @@ export const {
   clearFinishedTasks,
   toggleFilteredTasks,
   changeActiveTask,
+  incrementActiveTask,
 } = tasksSlice.actions;
 
 // export const selectAllTasks = (state: RootState) => state.tasks.tasks;
@@ -258,5 +275,7 @@ export const {
 
 export const getFilteredActive = (state: RootState) =>
   state.tasks.isFilteredActive;
+
+export const getActiveTaskId = (state: RootState) => state.tasks.activeTaskId;
 
 export default tasksSlice.reducer;

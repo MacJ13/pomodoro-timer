@@ -8,6 +8,7 @@ import {
   selectPomodoro,
   changeNextStage,
   startAutoCountdown,
+  isPomodoroStageId,
 } from "../../redux/pomodoroSlice";
 
 import { playSound } from "../../redux/soundSlice";
@@ -18,8 +19,11 @@ import CircularProgress from "./CircularProgress";
 import Countdown from "./Countdown";
 import Controls from "./Controls";
 import { StageId } from "../../types/types";
+import { incrementActiveTask } from "src/redux/tasksSlice";
 const ControlTimer = () => {
   const { stageId, status } = useSelector(selectPomodoro);
+
+  const isPomodoro = useSelector(isPomodoroStageId);
 
   const stage = useSelector((state: RootState) =>
     selectStageById(state, stageId)
@@ -68,6 +72,9 @@ const ControlTimer = () => {
 
   useEffect(() => {
     if (duration < 0 && isRunning) {
+      if (isPomodoro) {
+        dispatch(incrementActiveTask());
+      }
       dispatch(changeNextStage());
       dispatch(playSound());
     } else if (isRunning) {

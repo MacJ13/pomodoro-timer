@@ -62,7 +62,7 @@ const CreateTask = () => {
           onChange={handleChangeTitle}
         />
       </TaskField>
-      <TaskField title="Rounds">
+      <TaskField title="Total Rounds">
         <Input
           type="number"
           value={round}
