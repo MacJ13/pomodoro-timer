@@ -20,6 +20,11 @@ export type Task = {
   createdAt: string;
 };
 
+export type SingleTaskProps = {
+  index: number;
+  taskId: string;
+};
+
 export type ChildrenProps = {
   children?: React.ReactElement | React.ReactElement[];
 };
