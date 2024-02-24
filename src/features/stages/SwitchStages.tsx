@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectAllStages, updatePreviousTheme } from "../../redux/stagesSlice";
+import { selectAllStages } from "../../redux/stagesSlice";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { changeStageId, selectPomodoroId } from "../../redux/pomodoroSlice";
@@ -16,7 +16,6 @@ const SwitchStages = () => {
   const dispatch = useDispatch();
 
   const changeStage = (id: StageId) => {
-    dispatch(updatePreviousTheme(currentId));
     dispatch(changeStageId(id));
   };
 

@@ -92,7 +92,6 @@ const pomodoroSlice = createSlice({
       state.longBreakInterval = action.payload;
     },
     clearRounds(state, action: PayloadAction<StageId>) {
-      console.log(action.payload);
       if (action.payload === "pomodoro") state.round = 1;
       else state.round = 0.5;
     },

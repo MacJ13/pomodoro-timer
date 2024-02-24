@@ -15,14 +15,12 @@ import {
   changeStatus,
   getStatus,
   isPomodoroStageId,
-  selectPomodoroId,
 } from "../../redux/pomodoroSlice";
 
 import { getVolume, stopSound } from "../../redux/soundSlice";
 import { useRef } from "react";
 import { Flex } from "src/components/styles/Flex.styled";
 import { incrementActiveTask } from "src/redux/tasksSlice";
-import { updatePreviousTheme } from "src/redux/stagesSlice";
 
 type ControlsProps = {
   repeat: () => void;
@@ -30,7 +28,6 @@ type ControlsProps = {
 
 const Controls = ({ repeat }: ControlsProps) => {
   const status = useSelector(getStatus);
-  const stageId = useSelector(selectPomodoroId);
 
   const isPomodoro = useSelector(isPomodoroStageId);
   const volume = useSelector(getVolume);
@@ -54,7 +51,6 @@ const Controls = ({ repeat }: ControlsProps) => {
   };
 
   const updateStage = () => {
-    dispatch(updatePreviousTheme(stageId));
     dispatch(changeNextStage());
     dispatch(stopSound());
     if (isPomodoro) {

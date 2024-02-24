@@ -13,32 +13,23 @@ const stages: Stage[] = [
 
 const stagesSlice = createSlice({
   name: "stages",
-  initialState: {
-    stages,
-    previousTheme: stages[0].color,
-  },
+  initialState: stages,
+
   reducers: {
     changeStageTime(
       state,
       action: PayloadAction<{ id: StageId; newDuration: number }>
     ) {
-      const foundStage = state.stages.find(
+      const foundStage = state.find(
         (stage) => stage.id === action.payload.id
       ) as Stage;
       foundStage.duration = action.payload.newDuration;
-    },
-    updatePreviousTheme(state, action: PayloadAction<StageId>) {
-      const foundStage = state.stages.find(
-        (stage) => stage.id === action.payload
-      ) as Stage;
-
-      state.previousTheme = foundStage.color;
     },
     changeStageColor(
       state,
       action: PayloadAction<{ id: StageId; newColor: string }>
     ) {
-      const foundStage = state.stages.find(
+      const foundStage = state.find(
         (stage) => stage.id === action.payload.id
       ) as Stage;
 
@@ -47,21 +38,17 @@ const stagesSlice = createSlice({
   },
 });
 
-export const { changeStageTime, changeStageColor, updatePreviousTheme } =
-  stagesSlice.actions;
+export const { changeStageTime, changeStageColor } = stagesSlice.actions;
 
-export const selectAllStages = (state: RootState) => state.stages.stages;
+export const selectAllStages = (state: RootState) => state.stages;
 
 export const selectStageById = (state: RootState, id: StageId) =>
-  state.stages.stages.find((stage) => stage.id === id);
+  state.stages.find((stage) => stage.id === id);
 
 export const selectStageColor = (state: RootState, id: StageId) => {
   const stage = selectStageById(state, id) as Stage;
 
   return stage.color;
 };
-
-export const getPreviousTheme = (state: RootState) =>
-  state.stages.previousTheme;
 
 export default stagesSlice.reducer;
