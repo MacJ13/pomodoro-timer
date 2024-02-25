@@ -1,17 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { INITIAL_SOUND_SRC } from "../constants/constants";
+import { Sound } from "src/types/types";
 interface SoundState {
   playing: boolean;
   volume: number;
   src: string;
+  name: string;
   repeat: number;
 }
 
 const initialState: SoundState = {
   playing: false,
   volume: 0.5,
-  src: INITIAL_SOUND_SRC,
+  src: INITIAL_SOUND_SRC.src,
+  name: INITIAL_SOUND_SRC.name,
   repeat: 1,
 };
 
@@ -25,8 +28,10 @@ const soundSlice = createSlice({
     stopSound(state) {
       state.playing = false;
     },
-    changeSource(state, action: PayloadAction<string>) {
-      state.src = action.payload;
+    changeSource(state, action: PayloadAction<Sound>) {
+      const { src, name } = action.payload;
+      state.src = src;
+      state.name = name;
       state.playing = true;
     },
     changeVolume(state, action: PayloadAction<number>) {
@@ -49,7 +54,7 @@ export const {
 
 export const selectSound = (state: RootState) => state.sound;
 
-export const getSource = (state: RootState) => state.sound.src;
+export const getSoundName = (state: RootState) => state.sound.name;
 
 export const getVolume = (state: RootState) => state.sound.volume;
 

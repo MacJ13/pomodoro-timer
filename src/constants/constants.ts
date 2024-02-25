@@ -8,22 +8,8 @@ export const SOUNDS = [
   { src: Rooster, name: "rooster" },
 ];
 
-// export const SOUNDS = [Clock, Bird, Rooster].map((sound) => {
-//   const name = getFilename(sound);
+export const INITIAL_SOUND_SRC = SOUNDS[0];
 
-//   return { src: sound + "?a=" + Math.random(), name };
-// });
-
-// export const SOUNDS = Object.keys(
-//   import.meta.glob("~/src/assets/audio/*", { eager: true, as: "raw" })
-// ).map((sound) => {
-//   console.log(sound);
-//   const name = getFilename(sound);
-
-//   return { src: sound, name };
-// });
-
-export const INITIAL_SOUND_SRC = SOUNDS[0].src;
 export const THEMES: string[] = [
   "#c65151",
   "#258749",

@@ -20,6 +20,11 @@ export type Task = {
   createdAt: string;
 };
 
+export type Sound = {
+  src: string;
+  name: string;
+};
+
 export type SingleTaskProps = {
   index: number;
   taskId: string;

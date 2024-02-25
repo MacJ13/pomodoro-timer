@@ -2,14 +2,14 @@ import styled from "styled-components";
 import { SOUNDS } from "../../constants/constants";
 import DropdownSvg from "../../assets/icons/dropdown.svg?react";
 import { useEffect, useRef, useState } from "react";
-import { capitalize, getFilename } from "../../helpers/helpers";
+import { capitalize } from "../../helpers/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { changeSource, getSource } from "../../redux/soundSlice";
+import { changeSource, getSoundName } from "../../redux/soundSlice";
 import { Flex } from "src/components/styles/Flex.styled";
 import { List } from "src/components/styles/List.styled";
 
 const SoundList = () => {
-  const source = useSelector(getSource);
+  const soundName = useSelector(getSoundName);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
@@ -24,8 +24,8 @@ const SoundList = () => {
     }
   };
 
-  const changeSoundAlert = (name: string) => {
-    dispatch(changeSource(name));
+  const changeSoundAlert = (src: string, name: string) => {
+    dispatch(changeSource({ src, name }));
     setOpen(false);
   };
 
@@ -35,7 +35,7 @@ const SoundList = () => {
       <Item key={sound.name}>
         <Button
           onClick={() => {
-            changeSoundAlert(sound.src);
+            changeSoundAlert(sound.src, sound.name);
           }}
         >
           {buttonText}
@@ -44,7 +44,7 @@ const SoundList = () => {
     );
   });
 
-  const currentSoundName = capitalize(getFilename(source));
+  const capitalizedCurrentSoundName = capitalize(soundName);
 
   const toggleSoundList = (e: React.MouseEvent<HTMLElement>) => {
     stopPropagation(e);
@@ -72,7 +72,7 @@ const SoundList = () => {
   return (
     <Dropdown $open={open} onClick={toggleSoundList}>
       <Flex $justify="space-between">
-        {currentSoundName} <DropdownSvg />
+        {capitalizedCurrentSoundName} <DropdownSvg />
         {open && (
           <DropdownList ref={dropdownRef} onClick={stopPropagation}>
             {soundItems}
@@ -124,48 +124,5 @@ const Button = styled.button`
   text-align: left;
   padding: 0 0.75rem;
 `;
-
-// ${(props) =>
-//   props.$open
-//   ? `
-// z-index: 0;
-// &:before {
-
-// content: "";
-// position: fixed;
-// height: 100%;
-// width: 100%;
-// left: 0;
-// top: 0;
-// cursor: auto;
-// z-index: -1;
-// }
-// `
-//   : ""}
-
-// const List = styled.ul`
-//   background-color: ${({ theme }) => theme.colors.white};
-//   position: absolute;
-//   list-style: none;
-//   top: 100%;
-//   left: 0;
-//   border-radius: 0.33rem;
-
-//   width: 100%;
-//   padding: 0.5rem 0;
-//   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-//   z-index: 0;
-// `;
-
-// const Item = styled.li`
-//   padding: 0 0.5rem;
-
-//   color: rgba(0, 0, 0, 0.5);
-
-//   &:hover {
-//     background-color: ${({ theme }) => theme.colors.black025};
-//     color: ${({ theme }) => theme.colors.white};
-//   }
-// `;
 
 export default SoundList;
