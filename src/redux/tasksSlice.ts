@@ -200,33 +200,16 @@ export const {
   reorderTasks,
 } = tasksSlice.actions;
 
-// export const selectAllTasks = (state: RootState) => state.tasks.tasks;
-
-// export const selectTaskById = (state: RootState, id: string) =>
-//   state.tasks.tasks.find((task) => task.id === id);
-
-// export const getFilteredActive = (state: RootState) =>
-//   state.tasks.isFilteredActive;
-
-// export const getActiveTaskId = (state: RootState) => state.tasks.activeTaskId;
-
-// export const getActiveTask = (state: RootState) => {
-//   return state.tasks.tasks.find((task) => state.tasks.activeTaskId === task.id);
-// };
-
-// export const selectAllTasks = (state: RootState) => state.tasks.allIds.
-
 export const {
   selectAll: selectAllTasks,
   selectById: selectTaskById,
   selectIds: selectTaskIds,
+  selectTotal: selectTotalTasks,
 } = tasksAdapter.getSelectors((state: RootState) => state.tasks);
 
 export const getFilteredActive = (state: RootState) =>
   state.tasks.isFilteredActive;
 
 export const getActiveTaskId = (state: RootState) => state.tasks.activeTaskId;
-
-export const getAllTasksCount = (state: RootState) => state.tasks.ids.length;
 
 export default tasksSlice.reducer;
