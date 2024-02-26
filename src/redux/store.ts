@@ -1,19 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
-import stagesReducer from "./stagesSlice";
-import pomodoroReducer from "./pomodoroSlice";
-import settingsReducer from "./settingsSlice";
-import soundReducer from "./soundSlice";
-import tasksReducer from "./tasksSlice";
+import { persistedReducer } from "./persistConfig";
+import {
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
 export const store = configureStore({
-  reducer: {
-    stages: stagesReducer,
-    pomodoro: pomodoroReducer,
-    settings: settingsReducer,
-    sound: soundReducer,
-    tasks: tasksReducer,
-  },
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
+
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 
