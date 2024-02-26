@@ -9,8 +9,12 @@ import { useDispatch } from "react-redux";
 import { toggleCreatingTask } from "src/redux/settingsSlice";
 import { useEffect, useRef, useState } from "react";
 import TaskDropdown from "./TaskDropdown";
+import { useSelector } from "react-redux";
+import { getAllTasksCount } from "src/redux/tasksSlice";
 
 const TaskBar = () => {
+  const tasksCount = useSelector(getAllTasksCount);
+
   const dispatch = useDispatch();
 
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
@@ -51,7 +55,7 @@ const TaskBar = () => {
             <AddSvg />
           </Icon>
         </TaskButton>
-        <h2>Tasks</h2>
+        <h2>Tasks ({tasksCount})</h2>
         <TaskButton
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             setOpenDropdown(!openDropdown);

@@ -227,4 +227,6 @@ export const getFilteredActive = (state: RootState) =>
 
 export const getActiveTaskId = (state: RootState) => state.tasks.activeTaskId;
 
+export const getAllTasksCount = (state: RootState) => state.tasks.ids.length;
+
 export default tasksSlice.reducer;
