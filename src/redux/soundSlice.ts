@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { INITIAL_SOUND_SRC } from "../utils/constants/constants";
-import { Sound } from "src/utils/types/types";
-import { SoundState } from "src/utils/interfaces/interfaces";
+import { Sound, SoundState } from "src/utils/interfaces/interfaces";
 
 const initialState: SoundState = {
   playing: false,

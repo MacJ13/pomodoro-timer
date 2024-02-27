@@ -16,6 +16,22 @@ export interface SoundState {
   repeat: number;
 }
 
+export interface Sound {
+  src: string;
+  name: string;
+}
+
+export interface Task {
+  id: string;
+  title: string;
+  notes?: string;
+  roundsTotal: number;
+  roundsComplete: number;
+  done: boolean;
+  active: boolean;
+  createdAt: string;
+}
+
 export interface UpdatedTask {
   id: string;
   title: string;

@@ -4,9 +4,9 @@ import {
   PayloadAction,
   createEntityAdapter,
 } from "@reduxjs/toolkit";
-import { Task } from "src/utils/types/types";
+// import { Task } from "src/utils/types/types";
 import { RootState } from "./store";
-import { UpdatedTask } from "src/utils/interfaces/interfaces";
+import { Task, UpdatedTask } from "src/utils/interfaces/interfaces";
 
 const tasksAdapter = createEntityAdapter({
   selectId: (task: Task) => task.id,
