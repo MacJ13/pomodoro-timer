@@ -1,8 +1,13 @@
-import { ChildrenProps } from "src/types/types";
+import { Icon } from "src/components/styles/Icon.styled";
+import { TaskButtonProps } from "src/types/types";
 import styled from "styled-components";
 
-const TaskButton = ({ children }: ChildrenProps) => {
-  return <Button>{children}</Button>;
+const TaskButton = ({ svg, handleClick }: TaskButtonProps) => {
+  return (
+    <Button onClick={handleClick}>
+      <Icon $size="1.75rem">{svg}</Icon>
+    </Button>
+  );
 };
 
 const Button = styled.button`

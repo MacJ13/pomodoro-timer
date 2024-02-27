@@ -1,15 +1,14 @@
 import { Flex } from "src/components/styles/Flex.styled";
-import { Icon } from "src/components/styles/Icon.styled";
 import DotsSvg from "../../assets/icons/dots.svg?react";
 import AddSvg from "../../assets/icons/add.svg?react";
 
 import styled from "styled-components";
-import { Button } from "src/components/styles/Button.styled";
 import { useDispatch } from "react-redux";
 import { toggleCreatingTask } from "src/redux/settingsSlice";
 import { useEffect, useRef, useState } from "react";
 import TaskDropdown from "./TaskDropdown";
 import TasksCounter from "./TasksCounter";
+import TaskButton from "./TaskButton";
 
 const TaskBar = () => {
   const dispatch = useDispatch();
@@ -47,22 +46,15 @@ const TaskBar = () => {
   return (
     <Bar>
       <Flex $justify="space-between">
-        <TaskButton onClick={openModal}>
-          <Icon $size="1.75rem">
-            <AddSvg />
-          </Icon>
-        </TaskButton>
+        <TaskButton svg={<AddSvg />} handleClick={openModal} />
         <TasksCounter />
         <TaskButton
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+          svg={<DotsSvg />}
+          handleClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             setOpenDropdown(!openDropdown);
             e.stopPropagation();
           }}
-        >
-          <Icon $size="1.75rem">
-            <DotsSvg />
-          </Icon>
-        </TaskButton>
+        />
       </Flex>
       {openDropdown && (
         <TaskDropdown ref={dropdownRef} handleCloseList={closeDropdownList} />
@@ -83,18 +75,6 @@ const Bar = styled.div`
 
   & h2 {
     letter-spacing: 1px;
-  }
-`;
-
-const TaskButton = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.white025};
-  border-radius: 50%;
-  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.125);
-  padding: 0.125rem;
-  position: relative;
-
-  &:active {
-    transform: translate(1px, 1px);
   }
 `;
 

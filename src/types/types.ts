@@ -25,6 +25,11 @@ export type Sound = {
   name: string;
 };
 
+export type TaskButtonProps = {
+  svg: React.ReactElement;
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
 export type SingleTaskProps = {
   index: number;
   taskId: string;
