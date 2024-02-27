@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { StageId } from "../types/types";
+import { StageId } from "../utils/types/types";
 
 const settingsSlice = createSlice({
   name: "settings",

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ChildrenProps } from "../../types/types";
+import { ChildrenProps } from "../../utils/types/types";
 import ChangeTheme from "src/features/stages/ChangeTheme";
 
 const Wrapper = styled.div`

@@ -1,5 +1,5 @@
 import { Icon } from "src/components/styles/Icon.styled";
-import { TaskButtonProps } from "src/types/types";
+import { TaskButtonProps } from "src/utils/types/types";
 import styled from "styled-components";
 
 const TaskButton = ({ svg, handleClick }: TaskButtonProps) => {

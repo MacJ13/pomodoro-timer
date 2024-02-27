@@ -4,7 +4,7 @@ import {
   StyledModal,
 } from "../styles/Modal.styled";
 
-import { ChildrenProps } from "src/types/types";
+import { ChildrenProps } from "src/utils/types/types";
 
 type ModalProps = {
   handleClick: () => void;

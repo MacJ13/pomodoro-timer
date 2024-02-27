@@ -3,7 +3,7 @@ import { selectAllStages } from "../../redux/stagesSlice";
 import SettingsRow from "./SettingsRow";
 import styled from "styled-components";
 import { openTheme } from "../../redux/settingsSlice";
-import { StageId } from "../../types/types";
+import { StageId } from "../../utils/types/types";
 import { Button } from "src/components/styles/Button.styled";
 import { Flex } from "src/components/styles/Flex.styled";
 

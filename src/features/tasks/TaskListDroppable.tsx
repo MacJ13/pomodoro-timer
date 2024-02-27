@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Droppable } from "react-beautiful-dnd";
-import { ChildrenProps } from "src/types/types";
+import { ChildrenProps } from "src/utils/types/types";
 
 // this is solution for droppable in Strict mode
 const TaskListDroppable = ({ children }: ChildrenProps) => {

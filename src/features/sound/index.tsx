@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRandomAudioParameter } from "src/helpers/helpers";
+import { getRandomAudioParameter } from "src/utils/helpers/helpers";
 import { selectOpen } from "src/redux/settingsSlice";
 
 import { selectSound, stopSound } from "src/redux/soundSlice";

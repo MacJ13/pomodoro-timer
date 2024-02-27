@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { ToggleButtonProps } from "../../types/types";
+import { ToggleButtonProps } from "../../utils/types/types";
 
 const ToggleButton = ({ active, onClick }: ToggleButtonProps) => {
   const [toggle, setToggle] = useState(active);

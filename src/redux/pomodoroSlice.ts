@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { StageId, Status } from "../types/types";
+import { StageId, Status } from "../utils/types/types";
 
 // interface PomodoroStateKeys {
 //   [key: string]: string | number | boolean;

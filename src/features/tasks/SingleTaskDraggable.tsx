@@ -1,5 +1,5 @@
 import { Draggable } from "react-beautiful-dnd";
-import { ChildrenProps, SingleTaskProps } from "src/types/types";
+import { ChildrenProps, SingleTaskProps } from "src/utils/types/types";
 
 type TaskDraggableProps = SingleTaskProps & ChildrenProps;
 

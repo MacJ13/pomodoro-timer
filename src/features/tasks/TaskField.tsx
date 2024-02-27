@@ -1,6 +1,6 @@
 import { Flex } from "src/components/styles/Flex.styled";
 import { Label } from "src/components/styles/Label.styled";
-import { RowProps } from "src/types/types";
+import { RowProps } from "src/utils/types/types";
 import styled from "styled-components";
 
 const TaskField = ({ title, children }: RowProps) => {

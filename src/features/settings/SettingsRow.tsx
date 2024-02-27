@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RowProps } from "../../types/types";
+import { RowProps } from "../../utils/types/types";
 import { Flex } from "src/components/styles/Flex.styled";
 
 const SettingsRow = ({ title, children }: RowProps) => {

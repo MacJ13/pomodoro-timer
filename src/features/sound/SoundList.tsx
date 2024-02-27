@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { SOUNDS } from "../../constants/constants";
+import { SOUNDS } from "../../utils/constants/constants";
 import DropdownSvg from "../../assets/icons/dropdown.svg?react";
 import { useEffect, useRef, useState } from "react";
-import { capitalize } from "../../helpers/helpers";
+import { capitalize } from "../../utils/helpers/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSource, getSoundName } from "../../redux/soundSlice";
 import { Flex } from "src/components/styles/Flex.styled";

@@ -3,8 +3,8 @@ import { selectAllStages } from "../../redux/stagesSlice";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { changeStageId, selectPomodoroId } from "../../redux/pomodoroSlice";
-import { StageId } from "../../types/types";
-import { capitalize } from "src/helpers/helpers";
+import { StageId } from "../../utils/types/types";
+import { capitalize } from "src/utils/helpers/helpers";
 import { Button } from "src/components/styles/Button.styled";
 import { Flex } from "src/components/styles/Flex.styled";
 

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeStageTime, selectAllStages } from "../../redux/stagesSlice";
 import SettingsInput from "./SettingsInput";
 import SettingsRow from "./SettingsRow";
-import { capitalize } from "../../helpers/helpers";
+import { capitalize } from "../../utils/helpers/helpers";
 import { Label } from "src/components/styles/Label.styled";
 import { Flex } from "src/components/styles/Flex.styled";
 

@@ -18,7 +18,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import CircularProgress from "./CircularProgress";
 import Countdown from "./Countdown";
 import Controls from "./Controls";
-import { StageId } from "../../types/types";
+import { StageId } from "../../utils/types/types";
 import { incrementActiveTask } from "src/redux/tasksSlice";
 const ControlTimer = () => {
   const { stageId, status } = useSelector(selectPomodoro);

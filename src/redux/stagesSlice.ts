@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { Stage, StageId } from "../types/types";
+import { Stage, StageId } from "../utils/types/types";
 
 // for create actions
 // import { createSlice, PayloadAction } from "@reduxjs/toolkit";

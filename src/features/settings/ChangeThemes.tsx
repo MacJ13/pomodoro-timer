@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { THEMES } from "../../constants/constants";
+import { THEMES } from "../../utils/constants/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getStageColor,
@@ -7,7 +7,7 @@ import {
   toggleTheme,
 } from "../../redux/settingsSlice";
 import { changeStageColor } from "../../redux/stagesSlice";
-import { StageId } from "../../types/types";
+import { StageId } from "../../utils/types/types";
 
 const ChangeThemes = () => {
   const stageId = useSelector(getStageId);

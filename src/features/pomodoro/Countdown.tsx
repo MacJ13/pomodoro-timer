@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { minTwoDigits } from "../../helpers/helpers";
+import { minTwoDigits } from "../../utils/helpers/helpers";
 
 type CountdownProps = {
   duration: number;

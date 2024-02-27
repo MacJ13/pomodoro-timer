@@ -22,7 +22,7 @@ import {
 } from "src/redux/settingsSlice";
 import { RootState } from "src/redux/store";
 import SingleTaskDraggable from "./SingleTaskDraggable";
-import { SingleTaskProps } from "src/types/types";
+import { SingleTaskProps } from "src/utils/types/types";
 
 const SingleTask = ({ index, taskId }: SingleTaskProps) => {
   const task = useSelector((state: RootState) => {

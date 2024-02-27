@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Stage } from "../../types/types";
+import { Stage } from "../../utils/types/types";
 import { useSelector } from "react-redux";
 import { getStatus } from "src/redux/pomodoroSlice";
 

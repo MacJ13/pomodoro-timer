@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectPomodoro, toggleAutoStart } from "../../redux/pomodoroSlice";
 import SettingsRow from "./SettingsRow";
 import ToggleButton from "./ToggleButton";
-import { getTitleWords } from "../../helpers/helpers";
+import { getTitleWords } from "../../utils/helpers/helpers";
 
 const ChangeAutoStart = () => {
   const { autoStartBreaks, autoStartPomodoros } = useSelector(selectPomodoro);
