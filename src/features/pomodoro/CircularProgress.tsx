@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Stage } from "../../utils/types/types";
 import { useSelector } from "react-redux";
 import { getStatus } from "src/redux/pomodoroSlice";
+import { Stage } from "src/utils/interfaces/interfaces";
 
 type CircularProgressProps = {
   stage: Stage;

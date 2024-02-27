@@ -1,20 +1,21 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { StageId, Status } from "../utils/types/types";
+import { PomodoroState } from "src/utils/interfaces/interfaces";
+// import { StageId, Status } from "../utils/types/types";
 
 // interface PomodoroStateKeys {
 //   [key: string]: string | number | boolean;
 // }
 
-interface PomodoroState {
-  [key: string]: string | number | boolean;
-  status: Status;
-  stageId: StageId;
-  longBreakInterval: number;
-  round: number;
-  autoStartBreaks: boolean;
-  autoStartPomodoros: boolean;
-}
+// interface PomodoroState {
+//   [key: string]: string | number | boolean;
+//   status: Status;
+//   stageId: StageId;
+//   longBreakInterval: number;
+//   round: number;
+//   autoStartBreaks: boolean;
+//   autoStartPomodoros: boolean;
+// }
 
 const initialState: PomodoroState = {
   stageId: "pomodoro",
@@ -66,7 +67,7 @@ const pomodoroSlice = createSlice({
     changeStatus(state) {
       state.status = state.status === "start" ? "pause" : "start";
     },
-    changeStageId(state, action: PayloadAction<StageId>) {
+    changeStageId(state, action: PayloadAction<string>) {
       if (state.stageId === action.payload) {
         return;
       }
@@ -91,7 +92,7 @@ const pomodoroSlice = createSlice({
     changeInterval(state, action: PayloadAction<number>) {
       state.longBreakInterval = action.payload;
     },
-    clearRounds(state, action: PayloadAction<StageId>) {
+    clearRounds(state, action: PayloadAction<string>) {
       if (action.payload === "pomodoro") state.round = 1;
       else state.round = 0.5;
     },

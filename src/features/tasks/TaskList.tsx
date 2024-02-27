@@ -20,36 +20,6 @@ const TaskList = () => {
     );
   };
 
-  // const renderedTasks = taskIds.map((taskId, index) => (
-  //   <Draggable key={taskId} index={index} draggableId={taskId}>
-  //     {(provided, snapshot) => (
-  //       <div
-  //         ref={provided.innerRef}
-  //         {...provided.draggableProps}
-  //         {...provided.dragHandleProps}
-  //       >
-  //         <SingleTask taskId={taskId} />
-  //       </div>
-  //     )}
-  //   </Draggable>
-  // ));
-
-  // const content = taskIds.length !== 0 && (
-  //   <DragDropContext onDragEnd={handleDragEnd}>
-  //     <Droppable droppableId="droppable">
-  //       {(provided) => (
-  //         <div ref={provided.innerRef} {...provided.droppableProps}>
-  //           {/* {renderedTasks} */}
-  //           {taskIds.map((taskId, index) => (
-  //             <SingleTask key={taskId} index={index} taskId={taskId} />
-  //           ))}
-  //           {provided.placeholder}
-  //         </div>
-  //       )}
-  //     </Droppable>
-  //   </DragDropContext>
-  // );
-
   const renderedTasks = taskIds.map((taskId, index) => (
     <SingleTask key={taskId} index={index} taskId={taskId} />
   ));

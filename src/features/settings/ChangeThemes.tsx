@@ -7,14 +7,13 @@ import {
   toggleTheme,
 } from "../../redux/settingsSlice";
 import { changeStageColor } from "../../redux/stagesSlice";
-import { StageId } from "../../utils/types/types";
 
 const ChangeThemes = () => {
   const stageId = useSelector(getStageId);
   const color = useSelector(getStageColor);
   const dispatch = useDispatch();
 
-  const clickTheme = (id: StageId, color: string) => {
+  const clickTheme = (id: string, color: string) => {
     dispatch(changeStageColor({ id, newColor: color }));
     dispatch(toggleTheme());
   };

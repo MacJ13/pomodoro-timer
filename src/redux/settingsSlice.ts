@@ -1,7 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { StageId } from "../utils/types/types";
 
 const settingsSlice = createSlice({
   name: "settings",
@@ -11,7 +10,7 @@ const settingsSlice = createSlice({
     openCreatingTask: false,
     openUpdatingTask: false,
     openDeletingTask: false,
-    stageId: "" as StageId,
+    stageId: "",
     taskId: "",
     stageColor: "",
   },
@@ -42,7 +41,7 @@ const settingsSlice = createSlice({
     toggleTheme(state) {
       state.isOpenTheme = !state.isOpenTheme;
     },
-    openTheme(state, action: PayloadAction<{ id: StageId; color: string }>) {
+    openTheme(state, action: PayloadAction<{ id: string; color: string }>) {
       state.isOpenTheme = true;
       state.stageId = action.payload.id;
       state.stageColor = action.payload.color;

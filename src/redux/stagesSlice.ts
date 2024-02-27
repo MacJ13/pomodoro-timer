@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { Stage, StageId } from "../utils/types/types";
+import { Stage } from "src/utils/interfaces/interfaces";
 
 // for create actions
 // import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -18,7 +18,7 @@ const stagesSlice = createSlice({
   reducers: {
     changeStageTime(
       state,
-      action: PayloadAction<{ id: StageId; newDuration: number }>
+      action: PayloadAction<{ id: string; newDuration: number }>
     ) {
       const foundStage = state.find(
         (stage) => stage.id === action.payload.id
@@ -27,7 +27,7 @@ const stagesSlice = createSlice({
     },
     changeStageColor(
       state,
-      action: PayloadAction<{ id: StageId; newColor: string }>
+      action: PayloadAction<{ id: string; newColor: string }>
     ) {
       const foundStage = state.find(
         (stage) => stage.id === action.payload.id
@@ -42,10 +42,10 @@ export const { changeStageTime, changeStageColor } = stagesSlice.actions;
 
 export const selectAllStages = (state: RootState) => state.stages;
 
-export const selectStageById = (state: RootState, id: StageId) =>
+export const selectStageById = (state: RootState, id: string) =>
   state.stages.find((stage) => stage.id === id);
 
-export const selectStageColor = (state: RootState, id: StageId) => {
+export const selectStageColor = (state: RootState, id: string) => {
   const stage = selectStageById(state, id) as Stage;
 
   return stage.color;

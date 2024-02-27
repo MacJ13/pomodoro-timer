@@ -6,26 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { Task } from "src/utils/types/types";
 import { RootState } from "./store";
-
-// type TasksState = {
-//   tasks: Task[];
-//   isFilteredActive: boolean;
-//   activeTaskId: string;
-// };
-
-type UpdatedTask = {
-  id: string;
-  title: string;
-  notes: string;
-  roundsTotal: number;
-  roundsComplete: number;
-};
-
-// const initialState: TasksState = {
-//   tasks: [],
-//   activeTaskId: "",
-//   isFilteredActive: false,
-// };
+import { UpdatedTask } from "src/utils/interfaces/interfaces";
 
 const tasksAdapter = createEntityAdapter({
   selectId: (task: Task) => task.id,
