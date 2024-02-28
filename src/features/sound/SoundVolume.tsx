@@ -15,13 +15,8 @@ const SoundVolume = () => {
     if (!playing) dispatch(playSound());
   };
 
-  const onClickSlider = (e: React.MouseEvent<HTMLInputElement>) => {
+  const onHandleSlider = (e: React.SyntheticEvent<HTMLInputElement>) => {
     const volume = Number((e.target as HTMLInputElement).value);
-    updateVolumeSound(volume);
-  };
-
-  const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const volume = Number(e.target.value);
     updateVolumeSound(volume);
   };
 
@@ -36,8 +31,8 @@ const SoundVolume = () => {
         max="1"
         step="0.1"
         value={volume}
-        onClick={onClickSlider}
-        onInput={onChangeSlider}
+        onClick={onHandleSlider}
+        onInput={onHandleSlider}
       />
     </Flex>
   );
