@@ -1,12 +1,8 @@
 import styled from "styled-components";
-import { ChildrenProps } from "../../utils/types/types";
+import { RowProps } from "../../utils/types/types";
 import { Flex } from "src/components/styles/Flex.styled";
 
-type SettingsHeadingProps = {
-  title: string;
-} & ChildrenProps;
-
-const SettingsHeading = ({ title, children }: SettingsHeadingProps) => {
+const SettingsHeading = ({ title, children }: RowProps) => {
   return (
     <Heading>
       <Flex $justify="space-between">

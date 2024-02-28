@@ -18,3 +18,25 @@ export type ToggleButtonProps = {
   active: boolean;
   onClick: (active: boolean) => void;
 };
+
+export type CountdownProps = {
+  duration: number;
+};
+
+export type InputProps = {
+  count: number;
+  handleChange: (value: number) => void;
+};
+
+export type HandlerProps = {
+  handleClick: () => void;
+};
+
+export type ControlButtonProps = {
+  disabled?: boolean;
+} & ChildrenProps &
+  HandlerProps;
+
+export type ModalProps = HandlerProps & ChildrenProps;
+
+export type ModalButtonProps = { children: React.ReactNode } & HandlerProps;

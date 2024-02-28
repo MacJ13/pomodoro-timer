@@ -57,7 +57,7 @@ const TaskBar = () => {
         />
       </Flex>
       {openDropdown && (
-        <TaskDropdown ref={dropdownRef} handleCloseList={closeDropdownList} />
+        <TaskDropdown ref={dropdownRef} handleClick={closeDropdownList} />
       )}
     </Bar>
   );

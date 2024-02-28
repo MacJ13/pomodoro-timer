@@ -8,13 +8,10 @@ import {
   getFilteredActive,
   toggleFilteredTasks,
 } from "src/redux/tasksSlice";
+import { HandlerProps } from "src/utils/types/types";
 
-type TaskDropdownProps = {
-  handleCloseList: () => void;
-};
-
-const TaskDropdown = forwardRef<HTMLUListElement, TaskDropdownProps>(
-  ({ handleCloseList }, ref) => {
+const TaskDropdown = forwardRef<HTMLUListElement, HandlerProps>(
+  ({ handleClick }, ref) => {
     const filteredActive = useSelector(getFilteredActive);
     const dispatch = useDispatch();
 
@@ -24,7 +21,7 @@ const TaskDropdown = forwardRef<HTMLUListElement, TaskDropdownProps>(
           <Button
             onClick={() => {
               dispatch(toggleFilteredTasks());
-              handleCloseList();
+              handleClick();
             }}
           >
             {filteredActive ? "Show" : "Hide"} undone tasks
@@ -34,7 +31,7 @@ const TaskDropdown = forwardRef<HTMLUListElement, TaskDropdownProps>(
           <Button
             onClick={() => {
               dispatch(clearFinishedTasks());
-              handleCloseList();
+              handleClick();
             }}
           >
             Clear finished tasks
@@ -44,7 +41,7 @@ const TaskDropdown = forwardRef<HTMLUListElement, TaskDropdownProps>(
           <Button
             onClick={() => {
               dispatch(clearAllTasks());
-              handleCloseList();
+              handleClick();
             }}
           >
             Clear all tasks

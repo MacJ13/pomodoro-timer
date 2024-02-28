@@ -3,13 +3,15 @@ import { useSelector } from "react-redux";
 import { getStatus } from "src/redux/pomodoroSlice";
 import { Stage } from "src/utils/interfaces/interfaces";
 
-type CircularProgressProps = {
+const CircularProgress = ({
+  stage,
+  size,
+  current,
+}: {
   stage: Stage;
   size: number;
   current: number;
-};
-
-const CircularProgress = ({ stage, size, current }: CircularProgressProps) => {
+}) => {
   const status = useSelector(getStatus);
 
   const duration = current;

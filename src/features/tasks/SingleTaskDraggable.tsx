@@ -1,13 +1,11 @@
 import { Draggable } from "react-beautiful-dnd";
 import { ChildrenProps, SingleTaskProps } from "src/utils/types/types";
 
-type TaskDraggableProps = SingleTaskProps & ChildrenProps;
-
 const SingleTaskDraggable = ({
   index,
   taskId,
   children,
-}: TaskDraggableProps) => (
+}: SingleTaskProps & ChildrenProps) => (
   <Draggable index={index} draggableId={taskId}>
     {(provided) => (
       <div

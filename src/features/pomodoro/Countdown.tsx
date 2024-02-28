@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { minTwoDigits } from "../../utils/helpers/helpers";
-
-type CountdownProps = {
-  duration: number;
-};
+import { CountdownProps } from "src/utils/types/types";
 
 const Countdown = ({ duration }: CountdownProps) => {
   const quotient = Math.trunc(duration / 60);

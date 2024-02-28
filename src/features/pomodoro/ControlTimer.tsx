@@ -105,7 +105,7 @@ const ControlTimer = () => {
         <CircularProgress stage={stage} size={300} current={duration} />
         <Countdown duration={duration} />
       </CountdownWrapper>
-      <Controls repeat={repeatStage} />
+      <Controls handleClick={repeatStage} />
     </div>
   );
 };

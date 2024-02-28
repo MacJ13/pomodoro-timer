@@ -13,7 +13,7 @@ const RepeatSound = () => {
       <Label>repeat</Label>
       <SettingsInput
         count={repeating}
-        onChange={(newMinute) => {
+        handleChange={(newMinute) => {
           dispatch(updateRepeat(Number(newMinute)));
         }}
       />

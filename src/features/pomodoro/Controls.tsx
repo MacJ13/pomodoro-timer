@@ -21,12 +21,9 @@ import { getVolume, stopSound } from "../../redux/soundSlice";
 import { useRef } from "react";
 import { Flex } from "src/components/styles/Flex.styled";
 import { incrementActiveTask } from "src/redux/tasksSlice";
+import { HandlerProps } from "src/utils/types/types";
 
-type ControlsProps = {
-  repeat: () => void;
-};
-
-const Controls = ({ repeat }: ControlsProps) => {
+const Controls = ({ handleClick }: HandlerProps) => {
   const status = useSelector(getStatus);
 
   const isPomodoro = useSelector(isPomodoroStageId);
@@ -60,13 +57,13 @@ const Controls = ({ repeat }: ControlsProps) => {
 
   return (
     <FlexControls>
-      <ControlButton disabled={!isStart} handleButton={repeat}>
+      <ControlButton disabled={!isStart} handleClick={handleClick}>
         <RepeatSvg />
       </ControlButton>
-      <ControlButton handleButton={toggleCountdown}>
+      <ControlButton handleClick={toggleCountdown}>
         {isStart ? <PauseSvg /> : <PlaySvg />}
       </ControlButton>
-      <ControlButton disabled={!isStart} handleButton={updateStage}>
+      <ControlButton disabled={!isStart} handleClick={updateStage}>
         <NextSvg />
       </ControlButton>
     </FlexControls>

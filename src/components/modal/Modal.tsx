@@ -1,14 +1,9 @@
+import { ModalProps } from "src/utils/types/types";
 import {
   ModalContent,
   ModalWrapper,
   StyledModal,
 } from "../styles/Modal.styled";
-
-import { ChildrenProps } from "src/utils/types/types";
-
-type ModalProps = {
-  handleClick: () => void;
-} & ChildrenProps;
 
 const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
   e.stopPropagation();

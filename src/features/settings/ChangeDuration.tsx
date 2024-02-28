@@ -19,7 +19,7 @@ const ChangeDuration = () => {
         <Label>{name}</Label>
         <SettingsInput
           count={minute}
-          onChange={(newMinute) => {
+          handleChange={(newMinute) => {
             const newDuration = newMinute * 60;
             dispatch(changeStageTime({ id: stage.id, newDuration }));
           }}

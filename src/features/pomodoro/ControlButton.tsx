@@ -1,23 +1,14 @@
 import styled from "styled-components";
 import { Icon } from "src/components/styles/Icon.styled";
-
-type ButtonProps = {
-  children: React.ReactElement;
-  handleButton: () => void;
-  disabled?: boolean;
-};
+import { ControlButtonProps } from "src/utils/types/types";
 
 const ControlButton = ({
   disabled = false,
-  handleButton,
+  handleClick,
   children,
-}: ButtonProps) => {
+}: ControlButtonProps) => {
   return (
-    <Button
-      disabled={disabled}
-      $hidden={document.hidden}
-      onClick={handleButton}
-    >
+    <Button disabled={disabled} $hidden={document.hidden} onClick={handleClick}>
       <Icon>{children}</Icon>
     </Button>
   );
