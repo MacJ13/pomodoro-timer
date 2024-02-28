@@ -139,4 +139,7 @@ export const getStatus = (state: RootState) => state.pomodoro.status;
 export const getRound = (state: RootState) => state.pomodoro.round;
 export const isPomodoroStageId = (state: RootState) =>
   state.pomodoro.stageId === "pomodoro";
+export const isStartStatus = (state: RootState) =>
+  state.pomodoro.status === "start";
+
 export default pomodoroSlice.reducer;
