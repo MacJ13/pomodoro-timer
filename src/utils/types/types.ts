@@ -1,6 +1,9 @@
-export type TaskButtonProps = {
-  svg: React.ReactElement;
-  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+export type HandlerProps = {
+  handleClick: () => void;
+};
+
+export type CountdownProps = {
+  duration: number;
 };
 
 export type SingleTaskProps = {
@@ -12,15 +15,9 @@ export type ChildrenProps = {
   children?: React.ReactElement | React.ReactElement[];
 };
 
-export type RowProps = { title: string } & ChildrenProps;
-
-export type ToggleButtonProps = {
-  active: boolean;
-  onClick: (active: boolean) => void;
-};
-
-export type CountdownProps = {
-  duration: number;
+export type TaskButtonProps = {
+  svg: React.ReactElement;
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export type InputProps = {
@@ -28,8 +25,9 @@ export type InputProps = {
   handleChange: (value: number) => void;
 };
 
-export type HandlerProps = {
-  handleClick: () => void;
+export type ToggleButtonProps = {
+  active: boolean;
+  onClick: (active: boolean) => void;
 };
 
 export type ControlButtonProps = {
@@ -37,6 +35,10 @@ export type ControlButtonProps = {
   svg: React.ReactElement;
 } & HandlerProps;
 
-export type ModalProps = HandlerProps & ChildrenProps;
+export type RowProps = { title: string } & ChildrenProps;
 
 export type ModalButtonProps = { children: React.ReactNode } & HandlerProps;
+
+export type ModalProps = HandlerProps & ChildrenProps;
+
+export type SingleTaskDraggableProps = SingleTaskProps & ChildrenProps;
