@@ -57,15 +57,20 @@ const Controls = ({ handleClick }: HandlerProps) => {
 
   return (
     <FlexControls>
-      <ControlButton disabled={!isStart} handleClick={handleClick}>
-        <RepeatSvg />
-      </ControlButton>
-      <ControlButton handleClick={toggleCountdown}>
-        {isStart ? <PauseSvg /> : <PlaySvg />}
-      </ControlButton>
-      <ControlButton disabled={!isStart} handleClick={updateStage}>
-        <NextSvg />
-      </ControlButton>
+      <ControlButton
+        svg={<RepeatSvg />}
+        disabled={!isStart}
+        handleClick={handleClick}
+      />
+      <ControlButton
+        svg={isStart ? <PauseSvg /> : <PlaySvg />}
+        handleClick={toggleCountdown}
+      />
+      <ControlButton
+        svg={<NextSvg />}
+        disabled={!isStart}
+        handleClick={updateStage}
+      />
     </FlexControls>
   );
 };

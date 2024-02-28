@@ -5,11 +5,11 @@ import { ControlButtonProps } from "src/utils/types/types";
 const ControlButton = ({
   disabled = false,
   handleClick,
-  children,
+  svg,
 }: ControlButtonProps) => {
   return (
     <Button disabled={disabled} $hidden={document.hidden} onClick={handleClick}>
-      <Icon>{children}</Icon>
+      <Icon>{svg}</Icon>
     </Button>
   );
 };

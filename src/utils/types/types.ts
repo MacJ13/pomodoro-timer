@@ -34,8 +34,8 @@ export type HandlerProps = {
 
 export type ControlButtonProps = {
   disabled?: boolean;
-} & ChildrenProps &
-  HandlerProps;
+  svg: React.ReactElement;
+} & HandlerProps;
 
 export type ModalProps = HandlerProps & ChildrenProps;
 
