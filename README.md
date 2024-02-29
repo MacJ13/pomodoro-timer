@@ -8,7 +8,7 @@ in a time period.
 
 ## Link
 
-[Pomodoro-timer live demo](https://macj13.github.io/battleship-game/)
+[Pomodoro-timer live demo](https://macj13.github.io/pomodoro-timer/)
 
 ## Technologies:
 
