@@ -11,7 +11,7 @@ const ChangeInterval = () => {
     <SettingsRow title="Long Break Interval">
       <SettingsInput
         count={longBreakInterval}
-        onChange={(num) => {
+        handleChange={(num: number) => {
           dispatch(changeInterval(num));
         }}
       />
